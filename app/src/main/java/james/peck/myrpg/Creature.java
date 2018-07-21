@@ -1,5 +1,7 @@
 package james.peck.myrpg;
 
+import java.util.ArrayList;
+
 /**
  * Created by James on 4/15/2018.
  */
@@ -61,20 +63,25 @@ public class Creature {
         this.Name = name;
     }
 
-    public int getCHP() {
-        return CHP;
+    public int getMHP() {
+        return MHP;
     }
 
-    public void setCHP(int CHP) {
-        this.CHP = CHP;
+    public void setMHP(int MHP) {
+        this.MHP = MHP;
     }
 
-    public int getCEP() {
-        return CEP;
+    public int getMEP() {
+        return MEP;
     }
 
-    public void setCEP(int CEP) {
-        this.CEP = CEP;
+    public void setMEP(int MEP) {
+        this.MEP = MEP;
+    }
+
+    public boolean getIsPlayer()
+    {
+        return isPlayer;
     }
 
     private String Name;
@@ -83,8 +90,12 @@ public class Creature {
     private int Strength;
     private int Agility;
     private int Intuition;
-    private int CHP;
-    private int CEP;
+    private int MHP;
+    private int MEP;
+    public ArrayList<String> knownAttacks = new ArrayList<>();
+   // public ArrayList<Defense> knownDefenses;
+    private boolean isPlayer = false;
+    static public Creature Player;
 
     public Creature(String name, int health, int energy, int strength, int agility, int intuition) {
         Name = name;
@@ -93,9 +104,34 @@ public class Creature {
         Strength = strength;
         Agility = agility;
         Intuition = intuition;
-        CHP = health;
-        CEP = energy;
+        MHP = health;
+        MEP = energy;
     }
+
+    public Creature(String name, int health, int energy, int strength, int agility, int intuition, boolean player) {
+        Name = name;
+        Health = health;
+        Energy = energy;
+        Strength = strength;
+        Agility = agility;
+        Intuition = intuition;
+        MHP = health;
+        MEP = energy;
+        isPlayer = player;
+    }
+
+    public Creature(String name, int health, int energy, int strength, int agility, int intuition, Attack firstAttack) {
+        Name = name;
+        Health = health;
+        Energy = energy;
+        Strength = strength;
+        Agility = agility;
+        Intuition = intuition;
+        MHP = health;
+        MEP = energy;
+    }
+
+
 
     private int TurnProgress;
 

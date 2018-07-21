@@ -22,8 +22,9 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="44dp"
         android:background="@android:color/background_dark"
+        android:editable="false"
         android:ems="10"
-        android:inputType="textMultiLine"
+        android:inputType="none"
         android:selectAllOnFocus="false"
         android:singleLine="false"
         android:text="How Do You Turn This Thing On"
@@ -40,26 +41,17 @@
         app:layout_constraintStart_toStartOf="@+id/battleLog"
         app:layout_constraintTop_toBottomOf="@+id/battleLog" />
 
-    <GridView
+    <GridLayout
         android:id="@+id/moveList"
-        android:layout_width="0dp"
-        android:layout_height="218dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="368dp"
+        android:layout_height="217dp"
+        android:columnCount="3"
+        android:rowCount="4"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hp"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/nextPerson"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="230dp" />
+    </GridLayout>
 
 </android.support.constraint.ConstraintLayout>
