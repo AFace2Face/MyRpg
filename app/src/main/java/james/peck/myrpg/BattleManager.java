@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import static james.peck.myrpg.Attack.AttackList;
 import static james.peck.myrpg.Creature.Player;
+import static james.peck.myrpg.Defense.DefenseList;
 
 /**
  * Created by James on 4/14/2018.
@@ -29,6 +30,7 @@ public class BattleManager {
     private Creature Monster;
     final ArrayList<Creature> Fighters = new ArrayList<>();
     private GridLayout moveList;
+    private Attack CurrentAttack;
 
 
     public BattleManager(View screenView, Context currentContext)
@@ -81,9 +83,9 @@ public class BattleManager {
         battlelog = ScreenView.findViewById(R.id.battleLog);
         moveList = ScreenView.findViewById(R.id.moveList);
         Player = new Creature("James", 100, 100, 10, 8, 10, true);
-        Creature monster = new Creature("Ratman", 200, 50, 15, 5, 2);
+        Creature monster = new Creature("Ratman", 200, 50, 15, 5, 2, "blowDart", "solidBlock");
         Player.knownAttacks.add("maceStrike");
-        monster.knownAttacks.add("blowDart");
+        Player.knownDefenses.add("solidBlock");
         Monster = monster;
 
         Fighters.add(Player);
@@ -95,18 +97,34 @@ public class BattleManager {
 
     private void PlayerTurn()
     {
-        makeButtons(Player.knownAttacks);
+        makeButtons(Player.knownAttacks, true);
     }
 
     private void MonsterTurn()
     {
-        enemyAttack();
-        NextTurn();
+        pickEnemyAttack();
     }
-    private void enemyAttack()
+
+ /*   private void Damage(Creature target)
     {
-        Player.setHealth(Player.getHealth() - getAttack(Monster.knownAttacks.get(0)).getDamage());
+
+    } */
+
+
+    private void pickEnemyAttack()
+    {
+        CurrentAttack = getAttack(Monster.knownAttacks.get(0));
+        makeButtons(Player.knownDefenses, false);
+       // Player.setHealth(Player.getHealth() - getAttack(Monster.knownAttacks.get(0)).getDamage());
+    }
+
+    private void playerDefense(Defense defense)
+    {
+        Player.setHealth(Player.getHealth() - (CurrentAttack.getDamage()/defense.getPower()));
+
         battlelog.setText(battlelog.getText()+ "\n" + Player.getName() + " health is now " + Player.getHealth());
+        unmakeButtons();
+        NextTurn();
     }
 
     private void playerAttack(Attack attack)
@@ -124,20 +142,24 @@ public class BattleManager {
         return AttackList.get(attack);
     }
 
+    private Defense getDefense(String defense)
+    {
+        return DefenseList.get(defense);
+    }
+
     private void unmakeButtons()
     {
         moveList.removeAllViews();
         Skillbuttons.clear();
     }
 
-    private void makeButtons(ArrayList currentList)
+    private void makeButtons(ArrayList currentList, Boolean isAttack)
     {
 
      //moveList.addView(button);
      //button.getLayoutParams().width =(int) (0);
-
-     for(int i = 0; i <  currentList.size(); i++)
-        {
+        if(isAttack) {
+            for (int i = 0; i < currentList.size(); i++) {
 
 
                 final Button button = new Button(CurrentContext);
@@ -153,7 +175,25 @@ public class BattleManager {
                 });
 
 
+            }
+        }
+        else
+        {
+            for (int i = 0; i < currentList.size(); i++) {
 
+                final Button button = new Button(CurrentContext);
+                button.setText((String) currentList.get(i));
+                Skillbuttons.add(button);
+                moveList.addView(button);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        playerDefense(getDefense(button.getText().toString()));
+                    }
+                });
+
+
+            }
         }
 
 

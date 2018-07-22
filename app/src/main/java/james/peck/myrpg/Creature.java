@@ -93,7 +93,7 @@ public class Creature {
     private int MHP;
     private int MEP;
     public ArrayList<String> knownAttacks = new ArrayList<>();
-   // public ArrayList<Defense> knownDefenses;
+    public ArrayList<String> knownDefenses = new ArrayList<>();
     private boolean isPlayer = false;
     static public Creature Player;
 
@@ -120,7 +120,7 @@ public class Creature {
         isPlayer = player;
     }
 
-    public Creature(String name, int health, int energy, int strength, int agility, int intuition, Attack firstAttack) {
+    public Creature(String name, int health, int energy, int strength, int agility, int intuition, String firstAttack) {
         Name = name;
         Health = health;
         Energy = energy;
@@ -129,6 +129,20 @@ public class Creature {
         Intuition = intuition;
         MHP = health;
         MEP = energy;
+        knownAttacks.add(firstAttack);
+    }
+
+    public Creature(String name, int health, int energy, int strength, int agility, int intuition, String firstAttack, String firstDefense) {
+        Name = name;
+        Health = health;
+        Energy = energy;
+        Strength = strength;
+        Agility = agility;
+        Intuition = intuition;
+        MHP = health;
+        MEP = energy;
+        knownAttacks.add(firstAttack);
+        knownDefenses.add(firstDefense);
     }
 
 
