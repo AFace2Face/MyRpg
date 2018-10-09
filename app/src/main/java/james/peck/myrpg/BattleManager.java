@@ -31,6 +31,7 @@ public class BattleManager {
     final ArrayList<Creature> Fighters = new ArrayList<>();
     private GridLayout moveList;
     private Attack CurrentAttack;
+    private Defense CurrentDefense;
 
 
     public BattleManager(View screenView, Context currentContext)
@@ -86,10 +87,13 @@ public class BattleManager {
         Creature monster = new Creature("Ratman", 200, 50, 15, 5, 2, "blowDart", "solidBlock");
         Player.knownAttacks.add("maceStrike");
         Player.knownDefenses.add("solidBlock");
+        Player.knownAttacks.add("fireBall");
         Monster = monster;
 
         Fighters.add(Player);
         Fighters.add(Monster);
+
+
 
 
         NextTurn();
@@ -118,9 +122,14 @@ public class BattleManager {
        // Player.setHealth(Player.getHealth() - getAttack(Monster.knownAttacks.get(0)).getDamage());
     }
 
+    private void pickEnemyDefense()
+    {
+        CurrentDefense =  getDefense(Monster.knownDefenses.get(0));
+    }
+
     private void playerDefense(Defense defense)
     {
-        Player.setHealth(Player.getHealth() - (CurrentAttack.getDamage()/defense.getPower()));
+        Player.setHealth((int) (Player.getHealth() - (( CurrentAttack.getDamage()*(((float) defense.getPower()/100))))));
 
         battlelog.setText(battlelog.getText()+ "\n" + Player.getName() + " health is now " + Player.getHealth());
         unmakeButtons();
@@ -129,7 +138,8 @@ public class BattleManager {
 
     private void playerAttack(Attack attack)
     {
-        Monster.setHealth(Monster.getHealth()-attack.getDamage());
+        pickEnemyDefense();
+        Monster.setHealth((int) (Monster.getHealth() - ((attack.getDamage()*(((float) CurrentDefense.getPower()/100))))));
         battlelog.setText(battlelog.getText()+ "\n" + Monster.getName() + " health is now " + Monster.getHealth());
         unmakeButtons();
         NextTurn();

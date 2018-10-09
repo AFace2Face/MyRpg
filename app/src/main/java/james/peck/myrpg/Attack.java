@@ -73,6 +73,10 @@ public class Attack {
         {
             this.type = 2;
         }
+        else if (type.equals("fire"))
+        {
+            this.type = 3;
+        }
     }
 
 
