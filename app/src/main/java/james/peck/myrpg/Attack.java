@@ -6,66 +6,67 @@ import java.util.HashMap;
  * Created by James on 4/19/2018.
  */
 
-public class Attack {
+public class Attack extends Skill {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getDrain() {
         return drain;
     }
 
-    public void setDrain(int drain) {
-        this.drain = drain;
-    }
-
     public int getDamage() {
         return damage;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
     }
 
     public int getType() {
         return type;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public int getStat() {
+        return stat;
     }
 
-    public static HashMap<String, Attack> getAttackList() {
-        return AttackList;
-    }
-
-    public static void setAttackList(HashMap<String, Attack> attackList) {
-        AttackList = attackList;
+    public boolean isHeal() {
+        return isHeal;
     }
 
     public String name;
     private int drain;
     private int damage;
+    private int stat;
     private int type;
+    private boolean isHeal = false;
+
     static public HashMap<String, Attack> AttackList = new HashMap<>();
 
-    public Attack(String name, int drain, int damage, int type) {
+    public Attack(String name, int drain, int damage, int stat, int type) {
         this.name = name;
         this.drain = drain;
         this.damage = damage;
+        this.stat = stat;
         this.type = type;
     }
 
-    public Attack(String name, int drain, int damage, String type) {
+    public Attack(String name, int drain, int damage, String stat, String type) {
         this.name = name;
         this.drain = drain;
         this.damage = damage;
-        if(type.equals("Bash"))
+        if(stat.equals("str"))
+        {
+            this.stat = 0;
+        }
+        else if(stat.equals("agi"))
+        {
+            this.stat = 1;
+        }
+        else if(stat.equals("int"))
+        {
+            this.stat = 2;
+        }
+
+        if(type.equals("bash"))
         {
             this.type = 1;
         }

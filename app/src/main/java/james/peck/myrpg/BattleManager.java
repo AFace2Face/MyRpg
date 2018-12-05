@@ -1,14 +1,9 @@
 package james.peck.myrpg;
 
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,6 +27,10 @@ public class BattleManager {
     private GridLayout moveList;
     private Attack CurrentAttack;
     private Defense CurrentDefense;
+    private TextView playerHealth;
+    private TextView playerEnergy;
+    private TextView monsterHealth;
+    private TextView monsterEnergy;
 
 
     public BattleManager(View screenView, Context currentContext)
@@ -83,11 +82,18 @@ public class BattleManager {
     {
         battlelog = ScreenView.findViewById(R.id.battleLog);
         moveList = ScreenView.findViewById(R.id.moveList);
+        playerHealth = ScreenView.findViewById(R.id.hp);
+        playerEnergy = ScreenView.findViewById(R.id.ep);
+        monsterHealth = ScreenView.findViewById(R.id.mhp);
+        monsterEnergy = ScreenView.findViewById(R.id.mep);
         Player = new Creature("James", 100, 100, 10, 8, 10, true);
-        Creature monster = new Creature("Ratman", 200, 50, 15, 5, 2, "blowDart", "solidBlock");
+        Creature monster = new Creature("Ratman", 150, 50, 4, 12, 2, "blowDart", "counterSwing");
         Player.knownAttacks.add("maceStrike");
         Player.knownDefenses.add("solidBlock");
         Player.knownAttacks.add("fireBall");
+        Player.knownAttacks.add("Thrust");
+        Player.knownDefenses.add("counterSwing");
+        Player.knownDefenses.add("simpleWard");
         Monster = monster;
 
         Fighters.add(Player);
@@ -99,70 +105,181 @@ public class BattleManager {
         NextTurn();
     }
 
+    /**
+     * prompts player to choose an attack skill
+     */
     private void PlayerTurn()
     {
         makeButtons(Player.knownAttacks, true);
     }
 
+    /**
+     * Decides on the enemies attack, and prompts player to defend
+     */
     private void MonsterTurn()
-    {
-        pickEnemyAttack();
-    }
-
- /*   private void Damage(Creature target)
-    {
-
-    } */
-
-
-    private void pickEnemyAttack()
     {
         CurrentAttack = getAttack(Monster.knownAttacks.get(0));
         makeButtons(Player.knownDefenses, false);
-       // Player.setHealth(Player.getHealth() - getAttack(Monster.knownAttacks.get(0)).getDamage());
     }
 
+    /**
+     * decides what defense the enemy will use
+     */
     private void pickEnemyDefense()
     {
         CurrentDefense =  getDefense(Monster.knownDefenses.get(0));
     }
 
+    /**
+     * resolves damage the player takes and updates displayed values
+     * @param defense  Defense player has selected
+     */
     private void playerDefense(Defense defense)
     {
-        Player.setHealth((int) (Player.getHealth() - (( CurrentAttack.getDamage()*(((float) defense.getPower()/100))))));
-
-        battlelog.setText(battlelog.getText()+ "\n" + Player.getName() + " health is now " + Player.getHealth());
+        float Bonus = findTypeBonus(CurrentAttack, defense);
+        Player.setHealth(Player.getHealth() - findDamage(CurrentAttack.getDamage(), findStatBonus(Monster, CurrentAttack), findStatBonus(Player, defense), defense.getImpairment(), Bonus));
+        Player.setEnergy(Player.getEnergy() - (findDamage(CurrentAttack.getDamage(), findStatBonus(Monster, CurrentAttack), findStatBonus(Player, defense), defense.getDrain(), Bonus))/3);
+        Monster.setEnergy(Monster.getEnergy() - CurrentAttack.getDrain());
+        battlelog.setText //(battlelog.getText()+ "\n" +
+                (Player.getName() + " health is now " + Player.getHealth());
+        updateLifeForce();
         unmakeButtons();
         NextTurn();
     }
 
+    /**
+     * Resolves the damage player deals, and updates values
+     * @param attack attack player has selected
+     */
     private void playerAttack(Attack attack)
     {
         pickEnemyDefense();
-        Monster.setHealth((int) (Monster.getHealth() - ((attack.getDamage()*(((float) CurrentDefense.getPower()/100))))));
-        battlelog.setText(battlelog.getText()+ "\n" + Monster.getName() + " health is now " + Monster.getHealth());
+        int health = Monster.getHealth();
+        float Bonus = findTypeBonus(attack, CurrentDefense);
+        Player.setEnergy(Player.getEnergy() - attack.getDrain());
+        Monster.setHealth(Monster.getHealth() - findDamage(attack.getDamage(), findStatBonus(Player, attack), findStatBonus(Monster, CurrentDefense), CurrentDefense.getImpairment(), Bonus));
+        Monster.setEnergy(Monster.getEnergy() - (findDamage(attack.getDamage(), findStatBonus(Player, attack), findStatBonus(Monster, CurrentDefense), CurrentDefense.getDrain(), Bonus))/3);
+        battlelog.setText //(battlelog.getText()+ "\n" +
+                (Monster.getName() + " Took " + (health - Monster.getHealth()));
+        updateLifeForce();
         unmakeButtons();
         NextTurn();
 
     }
 
+    /**
+     *  Updates the displayed values for Health and Energy for both combatants
+     */
+    private void updateLifeForce()
+    {
+        playerHealth.setText(Player.getHealth() + "/" + Player.getMHP() + " HP");
+        playerEnergy.setText("EP " + Player.getEnergy() + "/" + Player.getMEP());
+        monsterHealth.setText(Monster.getHealth() + "/" + Monster.getMHP() + " HP");
+        monsterEnergy.setText("EP " + Monster.getEnergy() + "/" + Monster.getMEP());
+    }
 
+    /**
+     * Takes a string and finds the attack with the same name
+     * @param attack name of attack
+     * @return attack object
+     */
     private Attack getAttack(String attack)
     {
         return AttackList.get(attack);
     }
 
+    /**
+     * Takes a string and finds the defense with the same name
+     * @param defense  Name of defense
+     * @return  defense object
+     */
     private Defense getDefense(String defense)
     {
         return DefenseList.get(defense);
     }
 
+    /**
+     * takes the attack and defense type, and decides if their is a damage bonus
+     * @param attack attacking skill
+     * @param defense defending skill
+     * @return The multiplier found
+     */
+    private float findTypeBonus(Attack attack, Defense defense)
+    {
+        float bonus = 1;
+        if(attack.getType() == 0 || defense.getType() == 0)
+        {
+            bonus = 2;
+        }
+        else if(attack.getType() == defense.getType())
+        {
+            bonus = 4;
+        }
+        return bonus;
+    }
+
+    /**
+     * finds the value for the skills associated stat
+     * @param creature creature using the skill
+     * @param skill skill being used
+     * @return value to be used with the skill
+     */
+    private int findStatBonus(Creature creature, Skill skill)
+    {
+        if(skill.getStat() == 0)
+        {
+            return creature.getStrength();
+        }
+        else if(skill.getStat() == 1)
+        {
+            return  creature.getAgility();
+        }
+        else if(skill.getStat() == 2)
+        {
+            return  creature.getIntuition();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    /**
+     * finds the damage done based on all variables involved
+     * @param attack skills base damage
+     * @param attackStat  value of attackers stat that the attack skill uses
+     * @param defenseStat value of defenders stat that the defense skill uses
+     * @param splitPercent amount of damage taken based on defense skill split for health/energy
+     * @param bonus attack/defense type bonus
+     * @return final damage dealt
+     */
+    private int findDamage(int attack, int attackStat, int defenseStat, float splitPercent, float bonus)
+    {
+        int damage = (int) (((attack + ((attack/4) * attackStat)) - ((attack/5) * defenseStat)) * bonus * (splitPercent/100));
+        if (damage > 0)
+        {
+            return damage;
+        }
+        else
+        {
+            return  0;
+        }
+    }
+
+    /**
+     * removes all buttons from onscreen
+     */
     private void unmakeButtons()
     {
         moveList.removeAllViews();
         Skillbuttons.clear();
     }
 
+    /**
+     * given a list of skills draws button and call a method depending on weather it's an attack or defense
+     * @param currentList list of skills
+     * @param isAttack wether given skills are an attack or defense
+     */
     private void makeButtons(ArrayList currentList, Boolean isAttack)
     {
 

@@ -13,14 +13,22 @@ public class AttackBuilder {
 
     {
 
-        Attack blowDart = new Attack("BlowDart", 20, 50, "pierce");
+        Attack blowDart = new Attack("BlowDart", 10, 25, "agi", "pierce");
         AttackList.put("blowDart", blowDart);
-        Attack maceStrike = new Attack("MaceStrike", 20, 50, "bash");
+        Attack maceStrike = new Attack("MaceStrike", 10, 25,"str", "bash");
         AttackList.put("maceStrike", maceStrike);
-        Attack fireBall = new Attack("FireBall", 50, 100, "fire");
+        Attack fireBall = new Attack("FireBall", 25, 50,"int", "fire");
         AttackList.put("fireBall", fireBall);
+        Attack thrust = new Attack("Thrust", 5, 15,"str", "pierce");
+        AttackList.put("Thrust", thrust);
 
-        Defense soildBlock = new Defense("solidBlock", 20, 70, 1);
-        DefenseList.put("solidBlock", soildBlock);
+        Defense solidBlock = new Defense("solidBlock", 30, 70, 0, 1);
+        DefenseList.put("solidBlock", solidBlock);
+
+        Defense counterSwing = new Defense("counterSwing", 40, 60, 0 , 2);
+        DefenseList.put("counterSwing", counterSwing);
+
+        Defense simpleWard = new Defense("SimpleWard", 100,0, 2, 0, 0);
+        DefenseList.put("simpleWard", simpleWard);
     }
 }
