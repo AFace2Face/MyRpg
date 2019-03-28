@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         BattleManager Combat = new BattleManager(ScreenView, getBaseContext());
         AttackBuilder Attacks = new AttackBuilder();   Attacks.BuildList();
+        CreatureDic Creatures = new CreatureDic(); Creatures.BuildDic();
         Combat.BattleStart();
     }
 }

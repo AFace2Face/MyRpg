@@ -78,6 +78,10 @@ public class Attack extends Skill {
         {
             this.type = 3;
         }
+        else if (type.equals("slash"))
+        {
+            this.type = 4;
+        }
     }
 
 

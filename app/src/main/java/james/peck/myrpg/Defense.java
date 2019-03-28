@@ -38,6 +38,7 @@ public class Defense extends Skill {
     private int type;
     private int stat;
     private int bonusType = 1;
+
     static public HashMap<String, Defense> DefenseList = new HashMap<>();
 
     public Defense(String name, int drain, int impairment, int stat, int type)

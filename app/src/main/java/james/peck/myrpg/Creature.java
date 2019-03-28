@@ -1,6 +1,7 @@
 package james.peck.myrpg;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by James on 4/15/2018.
@@ -84,6 +85,23 @@ public class Creature {
         return isPlayer;
     }
 
+    public int getArmor() {
+        return Armor;
+    }
+
+    public void setArmor(int armor) {
+        Armor = armor;
+    }
+
+    public int getWarding() {
+        return Warding;
+    }
+
+    public void setWarding(int warding) {
+        Warding = warding;
+    }
+
+    private int TurnProgress;
     private String Name;
     private int Health;
     private int Energy;
@@ -92,10 +110,16 @@ public class Creature {
     private int Intuition;
     private int MHP;
     private int MEP;
+    private int Armor = 0;
+    private int Warding = 0;
     public ArrayList<String> knownAttacks = new ArrayList<>();
     public ArrayList<String> knownDefenses = new ArrayList<>();
+    public ArrayList<String> equipedItems = new ArrayList<>();
+    public ArrayList<String> inventory = new ArrayList<>();
     private boolean isPlayer = false;
     static public Creature Player;
+
+    static public HashMap<String, Creature> CreatureList = new HashMap<>();
 
     public Creature(String name, int health, int energy, int strength, int agility, int intuition) {
         Name = name;
@@ -145,9 +169,40 @@ public class Creature {
         knownDefenses.add(firstDefense);
     }
 
+    public Creature(String name, int health, int energy, int strength, int agility, int intuition, int armor, int warding, String firstAttack, String firstDefense) {
+        Name = name;
+        Health = health;
+        Energy = energy;
+        Strength = strength;
+        Agility = agility;
+        Intuition = intuition;
+        MHP = health;
+        MEP = energy;
+        Armor = armor;
+        Warding = warding;
+        knownAttacks.add(firstAttack);
+        knownDefenses.add(firstDefense);
+    }
 
+    public Creature(final Creature copy){
+        Name = copy.getName();
+        Health = copy.getHealth();
+        Energy = copy.getEnergy();
+        Strength = copy.getStrength();
+        Agility = copy.getAgility();
+        Intuition = copy.getAgility();
+        Armor = copy.getArmor();
+        Warding = copy.getWarding();
+        MHP = Health;
+        MEP = Energy;
+        knownAttacks.add(copy.knownAttacks.get(0));
+        knownDefenses.add(copy.knownDefenses.get(0));
+    }
 
-    private int TurnProgress;
+    public Creature spawnNewCopy()
+    {
+        return new Creature(this);
+    }
 
 
 

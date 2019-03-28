@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import static james.peck.myrpg.Attack.AttackList;
+import static james.peck.myrpg.Creature.CreatureList;
 import static james.peck.myrpg.Creature.Player;
 import static james.peck.myrpg.Defense.DefenseList;
 
@@ -87,13 +88,17 @@ public class BattleManager {
         monsterHealth = ScreenView.findViewById(R.id.mhp);
         monsterEnergy = ScreenView.findViewById(R.id.mep);
         Player = new Creature("James", 100, 100, 10, 8, 10, true);
-        Creature monster = new Creature("Ratman", 150, 50, 4, 12, 2, "blowDart", "counterSwing");
+        Player.setArmor(20);
+        Player.setWarding(10);
+        Creature monster = CreatureList.get("giantRat").spawnNewCopy();
+        //Creature monster = new Creature("Ratman", 100, 65, 4, 12, 2, 15, 25, "blowDart", "counterSwing");
         Player.knownAttacks.add("maceStrike");
-        Player.knownDefenses.add("solidBlock");
         Player.knownAttacks.add("fireBall");
         Player.knownAttacks.add("Thrust");
+
         Player.knownDefenses.add("counterSwing");
         Player.knownDefenses.add("simpleWard");
+        Player.knownDefenses.add("solidBlock");
         Monster = monster;
 
         Fighters.add(Player);
@@ -105,12 +110,32 @@ public class BattleManager {
         NextTurn();
     }
 
+    private void nextBattle()
+    {
+        Monster = CreatureList.get("giantRat").spawnNewCopy();
+        Creature p = Fighters.get(0);
+        for(int i = 0; i < Fighters.size(); i++)
+        {
+            p = Fighters.get(i);
+            p.setTurnProgress(0);
+            updateLifeForce();
+        }
+         NextTurn();
+    }
+
     /**
      * prompts player to choose an attack skill
      */
     private void PlayerTurn()
     {
-        makeButtons(Player.knownAttacks, true);
+        if(stillFighting() == 0)
+        {
+            makeButtons(Player.knownAttacks, true);
+        }
+        else if(stillFighting() == 1)
+        {
+            nextBattle();
+        }
     }
 
     /**
@@ -118,8 +143,15 @@ public class BattleManager {
      */
     private void MonsterTurn()
     {
-        CurrentAttack = getAttack(Monster.knownAttacks.get(0));
-        makeButtons(Player.knownDefenses, false);
+        if(stillFighting() == 0)
+        {
+            CurrentAttack = getAttack(Monster.knownAttacks.get(0));
+            makeButtons(Player.knownDefenses, false);
+        }
+        else if(stillFighting() == 1)
+        {
+            nextBattle();
+        }
     }
 
     /**
@@ -136,12 +168,21 @@ public class BattleManager {
      */
     private void playerDefense(Defense defense)
     {
+        int health = Player.getHealth();
         float Bonus = findTypeBonus(CurrentAttack, defense);
-        Player.setHealth(Player.getHealth() - findDamage(CurrentAttack.getDamage(), findStatBonus(Monster, CurrentAttack), findStatBonus(Player, defense), defense.getImpairment(), Bonus));
-        Player.setEnergy(Player.getEnergy() - (findDamage(CurrentAttack.getDamage(), findStatBonus(Monster, CurrentAttack), findStatBonus(Player, defense), defense.getDrain(), Bonus))/3);
+        if(CurrentAttack.getDrain()-(Monster.getIntuition()) > CurrentAttack.getDrain()/4)
+        {
+            Monster.setEnergy(Monster.getEnergy() - ((CurrentAttack.getDrain())-Monster.getIntuition()));
+        }
+        else
+        {
+            Monster.setEnergy(Monster.getEnergy() - (CurrentAttack.getDrain())/4);
+        }
+        Player.setHealth(Player.getHealth() - findDamage(CurrentAttack.getDamage(), findStatBonus(Monster, CurrentAttack), findStatBonus(Player, defense), defense.getImpairment(), Bonus, Player.getArmor()));
+        Player.setEnergy(Player.getEnergy() - (findDamage(CurrentAttack.getDamage(), findStatBonus(Monster, CurrentAttack), findStatBonus(Player, defense), defense.getDrain(), Bonus, Player.getWarding()))/3);
         Monster.setEnergy(Monster.getEnergy() - CurrentAttack.getDrain());
         battlelog.setText //(battlelog.getText()+ "\n" +
-                (Player.getName() + " health is now " + Player.getHealth());
+                (Player.getName() + " Took " + (health - Player.getHealth()));
         updateLifeForce();
         unmakeButtons();
         NextTurn();
@@ -156,9 +197,16 @@ public class BattleManager {
         pickEnemyDefense();
         int health = Monster.getHealth();
         float Bonus = findTypeBonus(attack, CurrentDefense);
-        Player.setEnergy(Player.getEnergy() - attack.getDrain());
-        Monster.setHealth(Monster.getHealth() - findDamage(attack.getDamage(), findStatBonus(Player, attack), findStatBonus(Monster, CurrentDefense), CurrentDefense.getImpairment(), Bonus));
-        Monster.setEnergy(Monster.getEnergy() - (findDamage(attack.getDamage(), findStatBonus(Player, attack), findStatBonus(Monster, CurrentDefense), CurrentDefense.getDrain(), Bonus))/3);
+        if(attack.getDrain()-(Player.getIntuition()) > attack.getDrain()/5)
+        {
+            Player.setEnergy(Player.getEnergy() - ((attack.getDrain())-Player.getIntuition()));
+        }
+        else
+        {
+            Player.setEnergy(Player.getEnergy() - (attack.getDrain())/5);
+        }
+        Monster.setHealth(Monster.getHealth() - findDamage(attack.getDamage(), findStatBonus(Player, attack), findStatBonus(Monster, CurrentDefense), CurrentDefense.getImpairment(), Bonus, Monster.getArmor()));
+        Monster.setEnergy(Monster.getEnergy() - (findDamage(attack.getDamage(), findStatBonus(Player, attack), findStatBonus(Monster, CurrentDefense), CurrentDefense.getDrain(), Bonus, Monster.getWarding()))/3);
         battlelog.setText //(battlelog.getText()+ "\n" +
                 (Monster.getName() + " Took " + (health - Monster.getHealth()));
         updateLifeForce();
@@ -176,6 +224,31 @@ public class BattleManager {
         playerEnergy.setText("EP " + Player.getEnergy() + "/" + Player.getMEP());
         monsterHealth.setText(Monster.getHealth() + "/" + Monster.getMHP() + " HP");
         monsterEnergy.setText("EP " + Monster.getEnergy() + "/" + Monster.getMEP());
+    }
+
+    private int stillFighting()
+    {
+        if(Player.getHealth() <= 0)
+        {
+            battlelog.setText("You are dead");
+            return 2;
+        }
+        if(Player.getEnergy() <= 0)
+        {
+            battlelog.setText("You blackout and are killed");
+            return 2;
+        }
+        if(Monster.getHealth() <= 0)
+        {
+            battlelog.setText("You kill your target");
+            return 1;
+        }
+        if(Monster.getEnergy() <= 0)
+        {
+            battlelog.setText("Your target falls unconscious");
+            return 1;
+        }
+        return 0;
     }
 
     /**
@@ -253,9 +326,9 @@ public class BattleManager {
      * @param bonus attack/defense type bonus
      * @return final damage dealt
      */
-    private int findDamage(int attack, int attackStat, int defenseStat, float splitPercent, float bonus)
+    private int findDamage(int attack, int attackStat, int defenseStat, float splitPercent, float bonus, int flatReduction)
     {
-        int damage = (int) (((attack + ((attack/4) * attackStat)) - ((attack/5) * defenseStat)) * bonus * (splitPercent/100));
+        int damage = (int) ((((attack + ((attack/4) * attackStat)) - ((attack/5) * defenseStat)) * bonus * (splitPercent/100))) - flatReduction;
         if (damage > 0)
         {
             return damage;
