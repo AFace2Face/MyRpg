@@ -1,6 +1,7 @@
 package james.peck.myrpg;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -32,6 +33,7 @@ public class BattleManager {
     private TextView playerEnergy;
     private TextView monsterHealth;
     private TextView monsterEnergy;
+    private ArrayList<String> presentCreatures = new ArrayList<>();
 
 
     public BattleManager(View screenView, Context currentContext)
@@ -88,21 +90,25 @@ public class BattleManager {
         monsterHealth = ScreenView.findViewById(R.id.mhp);
         monsterEnergy = ScreenView.findViewById(R.id.mep);
         Player = new Creature("James", 100, 100, 10, 8, 10, true);
-        Player.setArmor(20);
+        Player.setArmor(5);
         Player.setWarding(10);
-        Creature monster = CreatureList.get("giantRat").spawnNewCopy();
-        //Creature monster = new Creature("Ratman", 100, 65, 4, 12, 2, 15, 25, "blowDart", "counterSwing");
+        Creature monster = CreatureList.get("largeFrog").spawnNewCopy();
         Player.knownAttacks.add("maceStrike");
         Player.knownAttacks.add("fireBall");
         Player.knownAttacks.add("Thrust");
+        Player.knownAttacks.add("shoot");
 
         Player.knownDefenses.add("counterSwing");
         Player.knownDefenses.add("simpleWard");
         Player.knownDefenses.add("solidBlock");
+        Player.knownDefenses.add("dodgeAttack");
         Monster = monster;
 
         Fighters.add(Player);
         Fighters.add(Monster);
+        CreatureDic myCreatureDic = new CreatureDic();
+        presentCreatures = myCreatureDic.PopulateArea(1);
+
 
 
 
@@ -110,10 +116,15 @@ public class BattleManager {
         NextTurn();
     }
 
+    /**
+     * lets the player rest after a victory and then spawns a new creature for them to fight
+     */
     private void nextBattle()
     {
-        Monster = CreatureList.get("giantRat").spawnNewCopy();
+        takeRest();
+        Monster = CreatureList.get(presentCreatures.get((int) (Math.random()* presentCreatures.size()))).spawnNewCopy();
         Creature p = Fighters.get(0);
+
         for(int i = 0; i < Fighters.size(); i++)
         {
             p = Fighters.get(i);
@@ -121,6 +132,23 @@ public class BattleManager {
             updateLifeForce();
         }
          NextTurn();
+    }
+
+    /**
+     * Heals the player between fights based on their strength
+     */
+    private void takeRest()
+    {
+        Player.setHealth(Player.getHealth() + (Player.getStrength()/2));
+        Player.setEnergy(Player.getEnergy() + (Player.getStrength()));
+        if(Player.getHealth() > Player.getMHP())
+        {
+            Player.setHealth(Player.getMHP());
+        }
+        if(Player.getEnergy() > Player.getMEP())
+        {
+            Player.setEnergy(Player.getMEP());
+        }
     }
 
     /**
@@ -168,6 +196,8 @@ public class BattleManager {
      */
     private void playerDefense(Defense defense)
     {
+        if (defense.getBonusType() == 0)
+        {
         int health = Player.getHealth();
         float Bonus = findTypeBonus(CurrentAttack, defense);
         if(CurrentAttack.getDrain()-(Monster.getIntuition()) > CurrentAttack.getDrain()/4)
@@ -180,12 +210,34 @@ public class BattleManager {
         }
         Player.setHealth(Player.getHealth() - findDamage(CurrentAttack.getDamage(), findStatBonus(Monster, CurrentAttack), findStatBonus(Player, defense), defense.getImpairment(), Bonus, Player.getArmor()));
         Player.setEnergy(Player.getEnergy() - (findDamage(CurrentAttack.getDamage(), findStatBonus(Monster, CurrentAttack), findStatBonus(Player, defense), defense.getDrain(), Bonus, Player.getWarding()))/3);
-        Monster.setEnergy(Monster.getEnergy() - CurrentAttack.getDrain());
         battlelog.setText //(battlelog.getText()+ "\n" +
                 (Player.getName() + " Took " + (health - Player.getHealth()));
         updateLifeForce();
         unmakeButtons();
-        NextTurn();
+        NextTurn();}
+        else if (defense.getBonusType() == 1)
+        {
+           int i = Player.getEnergy();
+            if (Player.getAgility() - Monster.getAgility() >= 0)
+            {
+                Player.setEnergy(i-10);
+            }
+            else
+            {
+                Player.setEnergy(i-(5 * (Monster.getAgility() - Player.getAgility())));
+            }
+            if(CurrentAttack.getDrain()-(Monster.getIntuition()) > CurrentAttack.getDrain()/4)
+            {
+                Monster.setEnergy(Monster.getEnergy() - ((CurrentAttack.getDrain())-Monster.getIntuition()));
+            }
+            else
+            {
+                Monster.setEnergy(Monster.getEnergy() - (CurrentAttack.getDrain())/4);
+            }
+            updateLifeForce();
+            unmakeButtons();
+            NextTurn();
+        }
     }
 
     /**
@@ -235,8 +287,9 @@ public class BattleManager {
         }
         if(Player.getEnergy() <= 0)
         {
+            if (Player.getEnergy() < Monster.getEnergy()){
             battlelog.setText("You blackout and are killed");
-            return 2;
+            return 2; }
         }
         if(Monster.getHealth() <= 0)
         {
@@ -351,19 +404,24 @@ public class BattleManager {
     /**
      * given a list of skills draws button and call a method depending on weather it's an attack or defense
      * @param currentList list of skills
-     * @param isAttack wether given skills are an attack or defense
+     * @param isAttack whether given skills are an attack or defense
      */
     private void makeButtons(ArrayList currentList, Boolean isAttack)
     {
-
-     //moveList.addView(button);
-     //button.getLayoutParams().width =(int) (0);
         if(isAttack) {
             for (int i = 0; i < currentList.size(); i++) {
 
 
                 final Button button = new Button(CurrentContext);
                 button.setText((String) currentList.get(i));
+                button.setTextColor(Color.parseColor("#FFFFFF"));
+                button.setTextSize(11);
+                if((getAttack((button.getText().toString()))).getStat() == 0)
+                { button.setBackground(button.getContext().getResources().getDrawable(R.drawable.strength_border));}
+                else if((getAttack((button.getText().toString()))).getStat() == 1)
+                {button.setBackground((button.getContext().getResources().getDrawable((R.drawable.agility_border))));}
+                else if ((getAttack((button.getText().toString()))).getStat() == 2)
+                { button.setBackground((button.getContext().getResources().getDrawable(R.drawable.intution_border)));}
                 Skillbuttons.add(button);
                 //optional: add your buttons to any layout if you want to see them in your screen
                 moveList.addView(button);
@@ -383,6 +441,14 @@ public class BattleManager {
 
                 final Button button = new Button(CurrentContext);
                 button.setText((String) currentList.get(i));
+                button.setTextColor(Color.parseColor("#FFFFFF"));
+                button.setTextSize(11);
+                if((getDefense((button.getText().toString()))).getStat() == 0)
+                { button.setBackground(button.getContext().getResources().getDrawable(R.drawable.strength_border));}
+                else if((getDefense((button.getText().toString()))).getStat() == 1)
+                {button.setBackground((button.getContext().getResources().getDrawable((R.drawable.agility_border))));}
+                else if ((getDefense((button.getText().toString()))).getStat() == 2)
+                { button.setBackground((button.getContext().getResources().getDrawable(R.drawable.intution_border)));}
                 Skillbuttons.add(button);
                 moveList.addView(button);
                 button.setOnClickListener(new View.OnClickListener() {

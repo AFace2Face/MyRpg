@@ -37,7 +37,7 @@ public class Defense extends Skill {
     private int impairment;
     private int type;
     private int stat;
-    private int bonusType = 1;
+    private int bonusType = 0;
 
     static public HashMap<String, Defense> DefenseList = new HashMap<>();
 
@@ -58,7 +58,7 @@ public class Defense extends Skill {
         this.impairment = impairment;
         this.stat = stat;
         this.type = type;
-        this.bonusType = type;
+        this.bonusType = bonusType;
 
     }
 
@@ -111,16 +111,6 @@ public class Defense extends Skill {
         else if(stat.equals("int"))
         {
             this.stat = 2;
-        }
-
-
-        if(bonusType.equals("health"))
-        {
-            this.bonusType = 0;
-        }
-        else if(bonusType.equals("energy"))
-        {
-            this.bonusType = 2;
         }
 
         else if(type.equals("base"))

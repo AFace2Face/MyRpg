@@ -190,7 +190,7 @@ public class Creature {
         Energy = copy.getEnergy();
         Strength = copy.getStrength();
         Agility = copy.getAgility();
-        Intuition = copy.getAgility();
+        Intuition = copy.getIntuition();
         Armor = copy.getArmor();
         Warding = copy.getWarding();
         MHP = Health;
@@ -199,6 +199,10 @@ public class Creature {
         knownDefenses.add(copy.knownDefenses.get(0));
     }
 
+    /**
+     *
+     * @return
+     */
     public Creature spawnNewCopy()
     {
         return new Creature(this);
