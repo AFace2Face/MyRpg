@@ -440,6 +440,7 @@ public class BattleManager {
             for (int i = 0; i < currentList.size(); i++) {
 
                 final Button button = new Button(CurrentContext);
+                button.setWidth((ScreenView.getWidth()/4));
                 button.setText((String) currentList.get(i));
                 button.setTextColor(Color.parseColor("#FFFFFF"));
                 button.setTextSize(11);
