@@ -1,5 +1,6 @@
 package james.peck.myrpg;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,7 +8,7 @@ import java.util.HashMap;
  * Created by James on 4/15/2018.
  */
 
-public class Creature {
+public class Creature implements Serializable {
     public int getHealth() {
         return Health;
     }
@@ -101,6 +102,22 @@ public class Creature {
         Warding = warding;
     }
 
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     private int TurnProgress;
     private String Name;
     private int Health;
@@ -112,6 +129,8 @@ public class Creature {
     private int MEP;
     private int Armor = 0;
     private int Warding = 0;
+    private int gold = 0;
+    private int level = 0;
     public ArrayList<String> knownAttacks = new ArrayList<>();
     public ArrayList<String> knownDefenses = new ArrayList<>();
     public ArrayList<String> equipedItems = new ArrayList<>();

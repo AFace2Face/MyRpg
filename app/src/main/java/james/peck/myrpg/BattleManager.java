@@ -1,6 +1,7 @@
 package james.peck.myrpg;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 
 import static james.peck.myrpg.Attack.AttackList;
 import static james.peck.myrpg.Creature.CreatureList;
-import static james.peck.myrpg.Creature.Player;
 import static james.peck.myrpg.Defense.DefenseList;
 
 /**
@@ -34,6 +34,7 @@ public class BattleManager {
     private TextView monsterHealth;
     private TextView monsterEnergy;
     private ArrayList<String> presentCreatures = new ArrayList<>();
+    public Creature Player;
 
 
     public BattleManager(View screenView, Context currentContext)
@@ -108,6 +109,16 @@ public class BattleManager {
         Fighters.add(Monster);
         CreatureDic myCreatureDic = new CreatureDic();
         presentCreatures = myCreatureDic.PopulateArea(1);
+
+        Button Character = (ScreenView.findViewById(R.id.Character_Button));
+        Character.setOnClickListener(new View.OnClickListener() {
+        public void onClick (View v)
+        {
+            Intent intent = new Intent(CurrentContext, CharacterActivity.class);
+            SaveLoadPlayer save = new SaveLoadPlayer(Player, CurrentContext);  save.playerSave();
+            CurrentContext.startActivity(intent);
+        }
+    });
 
 
 
