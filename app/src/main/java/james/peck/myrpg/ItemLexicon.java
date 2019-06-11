@@ -1,4 +1,8 @@
-package james.peck.myrpg.Items;
+package james.peck.myrpg;
+
+import james.peck.myrpg.Items.Body;
+import james.peck.myrpg.Items.Helmet;
+import james.peck.myrpg.Items.Weapon;
 
 import static james.peck.myrpg.Items.Equipment.gearList;
 
@@ -12,7 +16,7 @@ public class ItemLexicon {
         Body runicArmor = new Body("Runic Armor", 2500, 30, 70);
         gearList.put("runicArmor", runicArmor);
 
-        Helment avariceCrown = new Helment("Crown of Avarice", 50000, 0, 100);
+        Helmet avariceCrown = new Helmet("Crown of Avarice", 50000, 0, 100);
         gearList.put("avariceCrown", avariceCrown);
     }
 }

@@ -27,9 +27,9 @@ public class Weapon extends Equipment {
         this.bonusIntuition = bonusIntuition;
     }
 
-    private int bonusStrength = 0;
-    private int bonusAgility = 0;
-    private int bonusIntuition = 0;
+    private int bonusStrength;
+    private int bonusAgility;
+    private int bonusIntuition;
 
     public Weapon(String name, int value, int strength, int agility, int intutition)
     {

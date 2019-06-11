@@ -122,10 +122,19 @@ public class BattleManager {
             Intent intent = new Intent(CurrentContext, CharacterActivity.class);
             SaveLoadPlayer save = new SaveLoadPlayer(Player, CurrentContext);  save.playerSave();
             CurrentContext.startActivity(intent);
+
         }
     });
 
-
+        Button inventory = (ScreenView.findViewById(R.id.Return_Button));
+        inventory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CurrentContext, InventoryActivity.class);
+                SaveLoadPlayer save = new SaveLoadPlayer(Player, CurrentContext); save.playerSave();
+                CurrentContext.startActivity(intent);
+            }
+        });
 
 
 

@@ -1,8 +1,8 @@
 package james.peck.myrpg.Items;
 
-public class Helment extends Armor {
+public class Helmet extends Armor {
 
-    public Helment(String name, int value, int defense, int warding)
+    public Helmet(String name, int value, int defense, int warding)
     {
         this.name = name;
         this.value = value;

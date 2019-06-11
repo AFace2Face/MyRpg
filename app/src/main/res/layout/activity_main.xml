@@ -115,12 +115,12 @@
             android:backgroundTint="@android:color/darker_gray"
             android:text="Retreat"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button5"
+            app:layout_constraintEnd_toStartOf="@+id/Return_Button"
             app:layout_constraintStart_toEndOf="@+id/Character_Button"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/Return_Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
