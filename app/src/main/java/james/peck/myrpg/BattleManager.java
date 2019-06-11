@@ -22,8 +22,8 @@ public class BattleManager {
 
     private View ScreenView;
     private Context CurrentContext;
-    private ArrayList<Button> Skillbuttons = new ArrayList<>();
-    private TextView battlelog;
+    private ArrayList<Button> SkillButtons = new ArrayList<>();
+    private TextView battleLog;
     private Creature Monster;
     final ArrayList<Creature> Fighters = new ArrayList<>();
     private GridLayout moveList;
@@ -84,7 +84,7 @@ public class BattleManager {
 
     public void BattleStart()
     {
-        battlelog = ScreenView.findViewById(R.id.battleLog);
+        battleLog = ScreenView.findViewById(R.id.battleLog);
         moveList = ScreenView.findViewById(R.id.moveList);
         playerHealth = ScreenView.findViewById(R.id.hp);
         playerEnergy = ScreenView.findViewById(R.id.ep);
@@ -103,6 +103,11 @@ public class BattleManager {
         Player.knownDefenses.add("simpleWard");
         Player.knownDefenses.add("solidBlock");
         Player.knownDefenses.add("dodgeAttack");
+
+        Player.equipment[0] = "avariceCrown";
+        Player.equipment[1] = "runicArmor";
+        Player.equipment[2] = "masterStaff";
+        Player.findNewStats();
         Monster = monster;
 
         Fighters.add(Player);
@@ -221,7 +226,7 @@ public class BattleManager {
         }
         Player.setHealth(Player.getHealth() - findDamage(CurrentAttack.getDamage(), findStatBonus(Monster, CurrentAttack), findStatBonus(Player, defense), defense.getImpairment(), Bonus, Player.getArmor()));
         Player.setEnergy(Player.getEnergy() - (findDamage(CurrentAttack.getDamage(), findStatBonus(Monster, CurrentAttack), findStatBonus(Player, defense), defense.getDrain(), Bonus, Player.getWarding()))/3);
-        battlelog.setText //(battlelog.getText()+ "\n" +
+        battleLog.setText //(battlelog.getText()+ "\n" +
                 (Player.getName() + " Took " + (health - Player.getHealth()));
         updateLifeForce();
         unmakeButtons();
@@ -270,7 +275,7 @@ public class BattleManager {
         }
         Monster.setHealth(Monster.getHealth() - findDamage(attack.getDamage(), findStatBonus(Player, attack), findStatBonus(Monster, CurrentDefense), CurrentDefense.getImpairment(), Bonus, Monster.getArmor()));
         Monster.setEnergy(Monster.getEnergy() - (findDamage(attack.getDamage(), findStatBonus(Player, attack), findStatBonus(Monster, CurrentDefense), CurrentDefense.getDrain(), Bonus, Monster.getWarding()))/3);
-        battlelog.setText //(battlelog.getText()+ "\n" +
+        battleLog.setText //(battlelog.getText()+ "\n" +
                 (Monster.getName() + " Took " + (health - Monster.getHealth()));
         updateLifeForce();
         unmakeButtons();
@@ -293,23 +298,23 @@ public class BattleManager {
     {
         if(Player.getHealth() <= 0)
         {
-            battlelog.setText("You are dead");
+            battleLog.setText("You are dead");
             return 2;
         }
         if(Player.getEnergy() <= 0)
         {
             if (Player.getEnergy() < Monster.getEnergy()){
-            battlelog.setText("You blackout and are killed");
+            battleLog.setText("You blackout and are killed");
             return 2; }
         }
         if(Monster.getHealth() <= 0)
         {
-            battlelog.setText("You kill your target");
+            battleLog.setText("You kill your target");
             return 1;
         }
         if(Monster.getEnergy() <= 0)
         {
-            battlelog.setText("Your target falls unconscious");
+            battleLog.setText("Your target falls unconscious");
             return 1;
         }
         return 0;
@@ -409,7 +414,7 @@ public class BattleManager {
     private void unmakeButtons()
     {
         moveList.removeAllViews();
-        Skillbuttons.clear();
+        SkillButtons.clear();
     }
 
     /**
@@ -433,7 +438,7 @@ public class BattleManager {
                 {button.setBackground((button.getContext().getResources().getDrawable((R.drawable.agility_border))));}
                 else if ((getAttack((button.getText().toString()))).getStat() == 2)
                 { button.setBackground((button.getContext().getResources().getDrawable(R.drawable.intution_border)));}
-                Skillbuttons.add(button);
+                SkillButtons.add(button);
                 //optional: add your buttons to any layout if you want to see them in your screen
                 moveList.addView(button);
                 button.setOnClickListener(new View.OnClickListener() {
@@ -461,7 +466,7 @@ public class BattleManager {
                 {button.setBackground((button.getContext().getResources().getDrawable((R.drawable.agility_border))));}
                 else if ((getDefense((button.getText().toString()))).getStat() == 2)
                 { button.setBackground((button.getContext().getResources().getDrawable(R.drawable.intution_border)));}
-                Skillbuttons.add(button);
+                SkillButtons.add(button);
                 moveList.addView(button);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override

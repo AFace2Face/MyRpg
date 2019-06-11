@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import james.peck.myrpg.Items.Armor;
+import james.peck.myrpg.Items.Weapon;
+
+import static james.peck.myrpg.Items.Equipment.gearList;
+
 /**
  * Created by James on 4/15/2018.
  */
@@ -118,13 +123,67 @@ public class Creature implements Serializable {
         this.level = level;
     }
 
+    public int getBaseStrength() {
+        return baseStrength;
+    }
+
+    public void setBaseStrength(int baseStrength) {
+        this.baseStrength = baseStrength;
+    }
+
+    public int getExtraStrength() {
+        return extraStrength;
+    }
+
+    public void setExtraStrength(int extraStrength) {
+        this.extraStrength = extraStrength;
+    }
+
+    public int getBaseAgility() {
+        return baseAgility;
+    }
+
+    public void setBaseAgility(int baseAgility) {
+        this.baseAgility = baseAgility;
+    }
+
+    public int getExtraAgility() {
+        return extraAgility;
+    }
+
+    public void setExtraAgility(int extraAgility) {
+        this.extraAgility = extraAgility;
+    }
+
+    public int getBaseIntuition() {
+        return baseIntuition;
+    }
+
+    public void setBaseIntuition(int baseIntuition) {
+        this.baseIntuition = baseIntuition;
+    }
+
+    public int getExtraIntuition() {
+        return extraIntuition;
+    }
+
+    public void setExtraIntuition(int extraIntuition) {
+        this.extraIntuition = extraIntuition;
+    }
+
     private int TurnProgress;
     private String Name;
     private int Health;
     private int Energy;
     private int Strength;
+    private int baseStrength = 0;
+    private int extraStrength = 0;
     private int Agility;
+    private int baseAgility = 0;
+    private int extraAgility = 0;
     private int Intuition;
+    private int baseIntuition = 0;
+    private int extraIntuition = 0;
     private int MHP;
     private int MEP;
     private int Armor = 0;
@@ -133,7 +192,7 @@ public class Creature implements Serializable {
     private int level = 0;
     public ArrayList<String> knownAttacks = new ArrayList<>();
     public ArrayList<String> knownDefenses = new ArrayList<>();
-    public ArrayList<String> equipedItems = new ArrayList<>();
+    public String equipment[] = {"head", "body", "weapon"};
     public ArrayList<String> inventory = new ArrayList<>();
     private boolean isPlayer = false;
     static public Creature Player;
@@ -155,9 +214,9 @@ public class Creature implements Serializable {
         Name = name;
         Health = health;
         Energy = energy;
-        Strength = strength;
-        Agility = agility;
-        Intuition = intuition;
+        baseStrength = strength;
+        baseAgility = agility;
+        baseIntuition = intuition;
         MHP = health;
         MEP = energy;
         isPlayer = player;
@@ -225,6 +284,21 @@ public class Creature implements Serializable {
     public Creature spawnNewCopy()
     {
         return new Creature(this);
+    }
+
+    /**
+     * finds and stats all stats based on the current items equipped
+     */
+    public void findNewStats()
+    {
+        extraStrength = ((Weapon)gearList.get(equipment[2])).getBonusStrength();
+        extraAgility = ((Weapon)gearList.get(equipment[2])).getBonusAgility();
+        extraIntuition = ((Weapon)gearList.get(equipment[2])).getBonusIntuition();
+        Strength = (baseStrength + extraStrength);
+        Agility = (baseAgility + extraAgility);
+        Intuition = (baseIntuition + extraIntuition);
+        Armor = (((Armor)gearList.get(equipment[0])).getDefense() + ((Armor)gearList.get(equipment[1])).getDefense());
+        Warding = (((Armor)gearList.get(equipment[0])).getWarding() + ((Armor)gearList.get(equipment[1])).getWarding());
     }
 
 

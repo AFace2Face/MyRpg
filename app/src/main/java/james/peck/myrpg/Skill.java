@@ -6,7 +6,7 @@ package james.peck.myrpg;
 
 public class Skill {
     public String name;
-    private int stat;
+    protected int stat;
 
     public int getStat() {
         return stat;

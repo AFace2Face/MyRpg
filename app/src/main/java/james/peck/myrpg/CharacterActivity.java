@@ -6,9 +6,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
 
-import static james.peck.myrpg.Creature.Player;
+
+import james.peck.myrpg.Items.Armor;
+import james.peck.myrpg.Items.Weapon;
+
+import static james.peck.myrpg.Items.Equipment.gearList;
 
 
 public class CharacterActivity extends AppCompatActivity {
@@ -46,18 +49,47 @@ public class CharacterActivity extends AppCompatActivity {
         TextView weaponName = findViewById(R.id.weapon_name);
         TextView weaponStats = findViewById(R.id.weapon_stats);
 
+        Player.findNewStats();
+
         nameDisplay.setText(Player.getName());
         goldDisplay.setText(Player.getGold() + " Gold");
         levelDisplay.setText("Level " +Player.getLevel());
         hpDisplay.setText(Player.getHealth() + "/" + Player.getMHP() + " HP" );
         energyDisplay.setText(Player.getEnergy() + "/" + Player.getMEP() + " Energy");
-        strengthDisplay.setText(Player.getStrength() + " Strength");
+        strengthDisplay.setText(Player.getBaseStrength() + " + " + Player.getExtraStrength() + " Strength");
         agilityDisplay.setText(Player.getAgility() + " Agility");
         intuitionDisplay.setText(Player.getIntuition() + " Intuition");
         armorDisplay.setText(Player.getArmor() + " Armor");
         wardingDisplay.setText(Player.getWarding() + " Warding");
+        headName.setText(findArmor(Player.equipment[0]).getName());
+        headStats.setText(findArmor(Player.equipment[0]).getDefense() + " Armor " + findArmor(Player.equipment[0]).getWarding() + " Warding");
+        bodyName.setText(findArmor(Player.equipment[1]).getName());
+        bodyStats.setText(findArmor(Player.equipment[1]).getDefense() + " Armor " + findArmor(Player.equipment[1]).getWarding() + " Warding");
+        weaponName.setText(findWeapon(Player.equipment[2]).getName());
+        weaponStats.setText(findWeapon(Player.equipment[2]).getBonusStrength() + " Str " + findWeapon(Player.equipment[2]).getBonusAgility() + " Agi " + findWeapon(Player.equipment[2]).getBonusIntuition() + " int");
 
 
 
     }
+
+    /**
+     * takes a String and find the Armor that has the same internal name
+     * @param target pass the internal name of what you want to find
+     * @return  the Armor object that has the same internal name
+     */
+    public Armor findArmor(String target)
+    {
+        return (Armor)gearList.get(target);
+    }
+
+    /**
+     * takes a String and find the Weapon that has the same internal name
+     * @param target pass the internal name of what you want to find
+     * @return  the Weapon object that has the same internal name
+     */
+    public Weapon findWeapon(String target)
+    {
+        return (Weapon)gearList.get(target);
+    }
+
 }

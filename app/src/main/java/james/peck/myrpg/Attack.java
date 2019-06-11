@@ -24,10 +24,6 @@ public class Attack extends Skill {
         return type;
     }
 
-    public int getStat() {
-        return stat;
-    }
-
     public boolean isHeal() {
         return isHeal;
     }
@@ -39,7 +35,6 @@ public class Attack extends Skill {
     public String name;
     private int drain;
     private int damage;
-    private int stat;
     private int type;
     private boolean isHeal = false;
     private int bonusType = 0;

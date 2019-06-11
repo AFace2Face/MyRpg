@@ -1,12 +1,10 @@
 package james.peck.myrpg;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
-import static james.peck.myrpg.Creature.Player;
+import james.peck.myrpg.Items.ItemLexicon;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         BattleManager Combat = new BattleManager(ScreenView, getBaseContext());
         AttackBuilder Attacks = new AttackBuilder();   Attacks.BuildList();
         CreatureDic Creatures = new CreatureDic(); Creatures.BuildDic();
+        ItemLexicon items = new ItemLexicon(); items.fillLexicon();
         Combat.BattleStart();
     }
 }
