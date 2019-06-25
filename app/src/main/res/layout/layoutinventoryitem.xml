@@ -5,16 +5,16 @@
     android:id="@+id/listitemlayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:background="@drawable/comment_background">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <TextView
         android:id="@+id/itemName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:background="@drawable/comment_background"
         android:text="Crown of the Avarice"
         android:textColor="@android:color/white"
         android:textSize="25sp" />
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@id/itemName"
-        android:layout_marginBottom="24dp"
+        android:background="@color/inventoryThird"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -32,7 +32,7 @@
             android:id="@+id/itemText"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="A Ornate crown which bestows unending gread upon the wearer"
+            android:text="A Ornate crown which bestows unending greed upon the wearer"
             android:textColor="@android:color/white" />
 
         <android.support.constraint.ConstraintLayout

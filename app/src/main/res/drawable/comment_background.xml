@@ -5,6 +5,6 @@
     android:enterFadeDuration="@android:integer/config_shortAnimTime"
     android:exitFadeDuration="@android:integer/config_shortAnimTime">
 
-    <item android:state_activated="true" android:drawable="@color/inventorylight" />
-    <item android:drawable="@color/inventorydark" />
+    <item android:state_activated="true" android:drawable="@color/inventoryLight" />
+    <item android:drawable="@color/inventoryDark" />
 </selector>
