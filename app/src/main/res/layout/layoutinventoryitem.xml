@@ -7,11 +7,10 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:focusable="true">
 
     <TextView
-        android:id="@+id/itemName"
+        android:id="@+id/itemname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/comment_background"
@@ -23,13 +22,13 @@
         android:id="@+id/details"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@id/itemName"
+        android:layout_below="@id/itemname"
         android:background="@color/inventoryThird"
         android:orientation="vertical"
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/itemText"
+            android:id="@+id/itemtext"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="A Ornate crown which bestows unending greed upon the wearer"

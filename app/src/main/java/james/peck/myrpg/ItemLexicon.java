@@ -16,7 +16,7 @@ public class ItemLexicon {
         Body runicArmor = new Body("Runic Armor", 2500, 30, 70);
         gearList.put("runicArmor", runicArmor);
 
-        Helmet avariceCrown = new Helmet("Crown of Avarice", 50000, 0, 100);
+        Helmet avariceCrown = new Helmet("Crown of Avarice", 50000, 10, 100);
         gearList.put("avariceCrown", avariceCrown);
     }
 }
