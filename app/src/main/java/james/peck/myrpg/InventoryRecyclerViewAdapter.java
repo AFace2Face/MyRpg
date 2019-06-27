@@ -1,6 +1,7 @@
 package james.peck.myrpg;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import james.peck.myrpg.Items.Armor;
 import james.peck.myrpg.Items.Item;
 import james.peck.myrpg.Items.SimpleItem;
+import james.peck.myrpg.Items.Weapon;
 
 import static james.peck.myrpg.Items.Equipment.gearList;
 
@@ -25,7 +29,7 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     private ArrayList<String> inventory;
     private int expandedPosition = -1;
     private int previousExpandedPosition = -1;
-    private final int ITEM = 0, EQUIP = 1;
+    private final int ITEM = 0, EQUIP = 1, WEAPON = 2;
 
     public InventoryRecyclerViewAdapter(Context context, ArrayList<String> inventory) {
         this.context = context;
@@ -43,6 +47,8 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             return ITEM;
         } else if (findItem(inventory.get(position)) instanceof Armor) {
             return EQUIP;
+        } else if (findItem(inventory.get(position)) instanceof Weapon) {
+            return  WEAPON;
         }
         return -1;
     }
@@ -70,6 +76,10 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                 view = inflater.inflate(R.layout.layoutinventoryequipment, viewGroup, false);
                 viewHolder = new EquipViewHolder(view);
                 break;
+            case WEAPON:
+                view = inflater.inflate(R.layout.layoutinventoryweapon, viewGroup, false);
+                viewHolder = new WeaponViewHolder(view);
+                break;
             default:
                 view = inflater.inflate(R.layout.layoutinventoryitem, viewGroup, false);
                 viewHolder = new ItemViewHolder(view);
@@ -90,6 +100,10 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             case EQUIP:
                 EquipViewHolder holder2 = (EquipViewHolder) holder;
                 configureEquipViewHolder(holder2, position);
+                break;
+            case WEAPON:
+                WeaponViewHolder holder3 = (WeaponViewHolder) holder;
+                configureWeaponViewHolder(holder3, position);
                 break;
         }
     }
@@ -136,6 +150,31 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         });
 
 
+    }
+
+    public void configureWeaponViewHolder(final WeaponViewHolder holder, int position)
+    {
+        holder.weaponName.setText(findItem(inventory.get(position)).getName());
+        holder.weaponText.setText(findItem(inventory.get(position)).getDescription());
+        holder.weaponStr.setText(((Weapon)findItem(inventory.get(position))).getBonusStrength() + " Str");
+        holder.weaponAgi.setText(((Weapon)findItem(inventory.get(position))).getBonusAgility() + " Agi");
+        holder.weaponInt.setText(((Weapon)findItem(inventory.get(position))).getBonusIntuition() + " Int");
+        holder.weaponValue.setText("Value: " + findItem(inventory.get(position)).getValue());
+
+        final boolean isExpanded = position == expandedPosition;
+        holder.weaponDetails.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.itemView.setActivated(isExpanded);
+        if (isExpanded)
+            previousExpandedPosition = position;
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expandedPosition = isExpanded ? -1 : holder.getAdapterPosition();
+                notifyItemChanged(previousExpandedPosition);
+                notifyItemChanged(holder.getAdapterPosition());
+            }
+        });
     }
 
     @Override
@@ -185,6 +224,30 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             listEquipLayout = itemView.findViewById(R.id.listequiplayout);
             equipDetails = itemView.findViewById(R.id.detailsequipment);
         }
+    }
+
+    public class WeaponViewHolder extends RecyclerView.ViewHolder {
+        TextView weaponName;
+        TextView weaponText;
+        TextView weaponStr;
+        TextView weaponAgi;
+        TextView weaponInt;
+        TextView weaponValue;
+        ConstraintLayout listWeaponLayout;
+        ConstraintLayout weaponDetails;
+
+        public  WeaponViewHolder(View itemView) {
+            super(itemView);
+            weaponName = itemView.findViewById(R.id.weaponname);
+            weaponText = itemView.findViewById(R.id.weapontext);
+            weaponStr = itemView.findViewById(R.id.strview);
+            weaponAgi = itemView.findViewById(R.id.agiview);
+            weaponInt = itemView.findViewById(R.id.intview);
+            weaponValue = itemView.findViewById(R.id.weaponvalue);
+            listWeaponLayout = itemView.findViewById(R.id.listweaponlayout);
+            weaponDetails = itemView.findViewById(R.id.weapondetails);
+        }
+
     }
 }
 

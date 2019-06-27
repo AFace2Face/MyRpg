@@ -109,6 +109,7 @@ public class BattleManager {
         Player.equipment[2] = "masterStaff";
         Player.findNewStats();
 
+        Player.inventory.add("masterStaff");
         Player.inventory.add("avariceCrown");
         Player.inventory.add("avariceCrown");
         Player.inventory.add("runicArmor");
