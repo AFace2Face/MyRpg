@@ -13,6 +13,9 @@ public class ItemLexicon {
         Weapon masterStaff = new Weapon("Master's Staff", 1000, 5, 2, 45);
         gearList.put("masterStaff", masterStaff);
 
+        Weapon copperBlade = new Weapon("Copper Blade", 20, 10, 1, 3);
+        gearList.put("CopperBlade", copperBlade);
+
         Body runicArmor = new Body("Runic Armor", 2500, 30, 70);
         gearList.put("runicArmor", runicArmor);
 

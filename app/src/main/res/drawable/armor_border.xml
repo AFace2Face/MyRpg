@@ -10,11 +10,11 @@
         <shape xmlns:android="http://schemas.android.com/apk/res/android"
             android:shape="rectangle" >
 
-            <solid android:color="#dddddd" />
+            <solid android:color="@color/inventoryThird" />
 
             <stroke
                 android:width="2dp"
-                android:color="#000000" />
+                android:color="#777777" />
 
         </shape>
     </item>

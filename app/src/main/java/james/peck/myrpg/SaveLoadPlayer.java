@@ -41,6 +41,23 @@ public class SaveLoadPlayer {
 
     }
 
+    public void playerSave(Creature target)
+    {
+        this.target = target;
+        File file = new File(context.getFilesDir(), "Player");
+        try {
+            FileOutputStream outputStream = context.openFileOutput("Player", Context.MODE_PRIVATE);
+
+            ObjectOutputStream objectOutStream = new ObjectOutputStream(outputStream);
+            objectOutStream.writeObject(target);
+            objectOutStream.close();
+        }catch (Exception e)
+        {
+
+        }
+
+    }
+
     public Creature playerLoad()
     {
         try {

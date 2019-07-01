@@ -1,8 +1,10 @@
 package james.peck.myrpg;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -18,10 +20,9 @@ import static james.peck.myrpg.Defense.DefenseList;
  * Created by James on 4/14/2018.
  */
 
-public class BattleManager {
+public class BattleActivity extends AppCompatActivity {
 
     private View ScreenView;
-    private Context CurrentContext;
     private ArrayList<Button> SkillButtons = new ArrayList<>();
     private TextView battleLog;
     private Creature Monster;
@@ -37,10 +38,13 @@ public class BattleManager {
     public Creature Player;
 
 
-    public BattleManager(View screenView, Context currentContext)
+    public void onCreate(Bundle savedInstanceState)
     {
-        ScreenView = screenView;
-        CurrentContext = currentContext;
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_battle);
+
+        ScreenView = findViewById(android.R.id.content);
+        BattleStart();
     }
 
     /**
@@ -106,7 +110,7 @@ public class BattleManager {
 
         Player.equipment[0] = "avariceCrown";
         Player.equipment[1] = "runicArmor";
-        Player.equipment[2] = "masterStaff";
+        Player.equipment[2] = "CopperBlade";
         Player.findNewStats();
 
         Player.inventory.add("masterStaff");
@@ -168,9 +172,9 @@ public class BattleManager {
         Character.setOnClickListener(new View.OnClickListener() {
         public void onClick (View v)
         {
-            Intent intent = new Intent(CurrentContext, CharacterActivity.class);
-            SaveLoadPlayer save = new SaveLoadPlayer(Player, CurrentContext);  save.playerSave();
-            CurrentContext.startActivity(intent);
+            Intent intent = new Intent(getBaseContext(), CharacterActivity.class);
+            SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext());  save.playerSave();
+            getBaseContext().startActivity(intent);
 
         }
     });
@@ -179,15 +183,23 @@ public class BattleManager {
         inventory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CurrentContext, InventoryActivity.class);
-                SaveLoadPlayer save = new SaveLoadPlayer(Player, CurrentContext); save.playerSave();
-                CurrentContext.startActivity(intent);
+                Intent intent = new Intent(getBaseContext(), InventoryActivity.class);
+                SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext()); save.playerSave();
+                getBaseContext().startActivity(intent);
+
             }
         });
 
 
 
         NextTurn();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SaveLoadPlayer loader = new SaveLoadPlayer(getBaseContext());
+        Player = loader.playerLoad();
     }
 
     /**
@@ -486,7 +498,7 @@ public class BattleManager {
             for (int i = 0; i < currentList.size(); i++) {
 
 
-                final Button button = new Button(CurrentContext);
+                final Button button = new Button(getBaseContext());
                 button.setText((String) currentList.get(i));
                 button.setTextColor(Color.parseColor("#FFFFFF"));
                 button.setTextSize(11);
@@ -513,7 +525,7 @@ public class BattleManager {
         {
             for (int i = 0; i < currentList.size(); i++) {
 
-                final Button button = new Button(CurrentContext);
+                final Button button = new Button(getBaseContext());
                 button.setWidth((ScreenView.getWidth()/4));
                 button.setText((String) currentList.get(i));
                 button.setTextColor(Color.parseColor("#FFFFFF"));

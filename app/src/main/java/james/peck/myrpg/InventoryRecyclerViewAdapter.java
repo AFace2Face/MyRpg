@@ -11,8 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import james.peck.myrpg.Items.Armor;
@@ -30,11 +28,20 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     private int expandedPosition = -1;
     private int previousExpandedPosition = -1;
     private final int ITEM = 0, EQUIP = 1, WEAPON = 2;
+    private EquipmentChanger changer;
+    private SaveLoadPlayer loader;
 
-    public InventoryRecyclerViewAdapter(Context context, ArrayList<String> inventory) {
+    public InventoryRecyclerViewAdapter(Context context) {
         this.context = context;
-        this.inventory = inventory;
+        changer = new EquipmentChanger(context);
+        loader = new SaveLoadPlayer(context);
+        inventory = loader.playerLoad().inventory;
 
+
+    }
+
+    public void updateInventoryList() {
+        inventory = loader.playerLoad().inventory;
     }
 
     public Item findItem(String item) {
@@ -128,7 +135,7 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         });
     }
 
-    public void configureEquipViewHolder(final EquipViewHolder holder, int position) {
+    public void configureEquipViewHolder(final EquipViewHolder holder, final int position) {
         holder.equipName.setText(findItem(inventory.get(position)).getName());
         holder.equipText.setText(findItem(inventory.get(position)).getDescription());
         holder.equipArmor.setText(((Armor)findItem(inventory.get(position))).getDefense() + " Armor");
@@ -149,10 +156,19 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             }
         });
 
+        holder.equipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changer.changeArmor(position);
+                updateInventoryList();
+                notifyItemChanged(holder.getAdapterPosition());
+            }
+        });
+
 
     }
 
-    public void configureWeaponViewHolder(final WeaponViewHolder holder, int position)
+    public void configureWeaponViewHolder(final WeaponViewHolder holder, final int position)
     {
         holder.weaponName.setText(findItem(inventory.get(position)).getName());
         holder.weaponText.setText(findItem(inventory.get(position)).getDescription());
@@ -175,6 +191,16 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                 notifyItemChanged(holder.getAdapterPosition());
             }
         });
+
+        holder.weaponEquip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changer.changeWeapon(position);
+                updateInventoryList();
+                notifyItemChanged(holder.getAdapterPosition());
+
+            }
+        });
     }
 
     @Override
@@ -195,7 +221,7 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             super(itemView);
             itemName = itemView.findViewById(R.id.itemname);
             itemText = itemView.findViewById(R.id.itemtext);
-            textBox = itemView.findViewById(R.id.textbox);
+            textBox = itemView.findViewById(R.id.equipvalue);
             itemValue = itemView.findViewById(R.id.itemvalue);
             listItemLayout = itemView.findViewById(R.id.listitemlayout);
             details = itemView.findViewById(R.id.details);
@@ -208,9 +234,10 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         TextView equipText;
         TextView equipArmor;
         TextView equipWarding;
+        TextView equipValue;
         Button equipCompare;
         Button equipButton;
-        LinearLayout equipDetails;
+        ConstraintLayout equipDetails;
         RelativeLayout listEquipLayout;
 
         public EquipViewHolder(View itemView) {
@@ -219,6 +246,7 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             equipText = itemView.findViewById(R.id.equipText);
             equipArmor = itemView.findViewById(R.id.equiparmor);
             equipWarding = itemView.findViewById(R.id.equipwarding);
+            equipValue = itemView.findViewById(R.id.equipvalue);
             equipCompare = itemView.findViewById(R.id.comparebutton);
             equipButton = itemView.findViewById(R.id.equipbutton);
             listEquipLayout = itemView.findViewById(R.id.listequiplayout);
@@ -233,6 +261,8 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         TextView weaponAgi;
         TextView weaponInt;
         TextView weaponValue;
+        Button weaponCompare;
+        Button weaponEquip;
         ConstraintLayout listWeaponLayout;
         ConstraintLayout weaponDetails;
 
@@ -244,6 +274,8 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             weaponAgi = itemView.findViewById(R.id.agiview);
             weaponInt = itemView.findViewById(R.id.intview);
             weaponValue = itemView.findViewById(R.id.weaponvalue);
+            weaponCompare = itemView.findViewById(R.id.weaponcompare);
+            weaponEquip = itemView.findViewById(R.id.weaponequip);
             listWeaponLayout = itemView.findViewById(R.id.listweaponlayout);
             weaponDetails = itemView.findViewById(R.id.weapondetails);
         }

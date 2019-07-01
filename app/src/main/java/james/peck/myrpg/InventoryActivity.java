@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class InventoryActivity extends AppCompatActivity {
 
-    private ArrayList<String> playerInventory = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +23,7 @@ public class InventoryActivity extends AppCompatActivity {
                 finish();
             }
         });
-        SaveLoadPlayer load = new SaveLoadPlayer(getBaseContext());
-        Creature Player = load.playerLoad();
-        playerInventory = Player.inventory;
+
 
         InitRecyclerView();
 
@@ -34,9 +31,10 @@ public class InventoryActivity extends AppCompatActivity {
 
     private void InitRecyclerView() {
         RecyclerView inventoryList = findViewById(R.id.itemView);
-        InventoryRecyclerViewAdapter adapter = new InventoryRecyclerViewAdapter(this, playerInventory);
+        InventoryRecyclerViewAdapter adapter = new InventoryRecyclerViewAdapter(this);
         inventoryList.setAdapter(adapter);
         inventoryList.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
 }

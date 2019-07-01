@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="james.peck.myrpg.BattleActivity"
+    android:background="#1e0d00">
+
+    <TextView
+        android:id="@+id/ep"
+        android:layout_width="106dp"
+        android:layout_height="25dp"
+        android:text="Ep 100/100"
+        android:textAlignment="textEnd"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/battleLog"
+        app:layout_constraintTop_toBottomOf="@+id/battleLog" />
+
+    <EditText
+        android:id="@+id/battleLog"
+        android:layout_width="308dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="36dp"
+        android:autoText="true"
+        android:background="@android:color/background_dark"
+        android:editable="false"
+        android:ems="10"
+        android:enabled="false"
+        android:gravity="bottom|center_horizontal"
+        android:inputType="none"
+        android:selectAllOnFocus="false"
+        android:singleLine="false"
+        android:text="How do you turn this thing @android:string/VideoView_error_button hai domo kizuna ai here up up down down left right left right A B start"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/hp"
+        android:layout_width="102dp"
+        android:layout_height="25dp"
+        android:text="100/100 Hp"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="@+id/battleLog"
+        app:layout_constraintTop_toBottomOf="@+id/battleLog" />
+
+    <GridLayout
+        android:id="@+id/moveList"
+        android:layout_width="wrap_content"
+        android:layout_height="282dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="8dp"
+        android:columnCount="4"
+        android:rowCount="4"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hp">
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/mhp"
+        android:layout_width="87dp"
+        android:layout_height="20dp"
+        android:text="150/150 Hp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/battleLog"
+        app:layout_constraintStart_toStartOf="@+id/battleLog" />
+
+    <TextView
+        android:id="@+id/mep"
+        android:layout_width="75dp"
+        android:layout_height="19dp"
+        android:text="Ep 50/50"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/battleLog"
+        app:layout_constraintEnd_toEndOf="@+id/battleLog" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="368dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/Character_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:fadingEdge="horizontal|vertical"
+            android:text="Character"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:text="Retreat"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/Return_Button"
+            app:layout_constraintStart_toEndOf="@+id/Character_Button"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/Return_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:text="Inventory"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
