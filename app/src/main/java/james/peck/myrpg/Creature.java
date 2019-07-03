@@ -195,6 +195,7 @@ public class Creature implements Serializable {
     public String equipment[] = {"head", "body", "weapon"};
     public ArrayList<String> inventory = new ArrayList<>();
     private boolean isPlayer = false;
+
     static public Creature Player;
 
     static public HashMap<String, Creature> CreatureList = new HashMap<>();

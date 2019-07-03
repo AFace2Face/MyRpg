@@ -12,10 +12,10 @@ import james.peck.myrpg.Items.Armor;
 import james.peck.myrpg.Items.Weapon;
 
 import static james.peck.myrpg.Items.Equipment.gearList;
+import static james.peck.myrpg.Creature.Player;
 
 
 public class CharacterActivity extends AppCompatActivity {
-
 
 
     @Override
@@ -29,8 +29,6 @@ public class CharacterActivity extends AppCompatActivity {
                 finish();
             }
         });
-        SaveLoadPlayer load = new SaveLoadPlayer(getBaseContext());
-        Creature Player = load.playerLoad();
         View screenView = this.findViewById(android.R.id.content);
         TextView nameDisplay = screenView.findViewById(R.id.name_display);
         TextView goldDisplay = findViewById(R.id.gold_display);

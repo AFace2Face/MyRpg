@@ -1,6 +1,8 @@
 package james.peck.myrpg;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,11 +16,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import james.peck.myrpg.Items.Armor;
+import james.peck.myrpg.Items.Equipment;
+import james.peck.myrpg.Items.Helmet;
 import james.peck.myrpg.Items.Item;
 import james.peck.myrpg.Items.SimpleItem;
 import james.peck.myrpg.Items.Weapon;
 
 import static james.peck.myrpg.Items.Equipment.gearList;
+import static james.peck.myrpg.Creature.Player;
 
 public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -29,23 +34,59 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     private int previousExpandedPosition = -1;
     private final int ITEM = 0, EQUIP = 1, WEAPON = 2;
     private EquipmentChanger changer;
-    private SaveLoadPlayer loader;
 
     public InventoryRecyclerViewAdapter(Context context) {
         this.context = context;
         changer = new EquipmentChanger(context);
-        loader = new SaveLoadPlayer(context);
-        inventory = loader.playerLoad().inventory;
+        inventory = Player.inventory;
 
 
     }
 
     public void updateInventoryList() {
-        inventory = loader.playerLoad().inventory;
+        inventory = Player.inventory;
     }
 
-    public Item findItem(String item) {
+    private Item findItem(String item) {
         return gearList.get(item);
+    }
+
+    public void showCompareDialog(String equippedItem, final int position, final int inventoryPosition) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        Equipment firstItem = (Equipment) findItem(equippedItem);
+        Equipment secondItem = (Equipment) findItem(inventory.get(position));
+
+        builder.setTitle("Compare Items");
+        if ( firstItem instanceof Weapon) {
+            builder.setMessage(firstItem.getName() + "   " + secondItem.getName() + "\n"
+                            + "Str: " + ((Weapon) firstItem).getBonusStrength() +  "\n" + "                             Str: " + ((Weapon) secondItem).getBonusStrength() + "\n"
+                            + "Agi: " + ((Weapon) firstItem).getBonusAgility() +  " \n" + "                             Agi: " + ((Weapon) secondItem).getBonusAgility() + "\n"
+                            + "Int: " + ((Weapon) firstItem).getBonusIntuition()+ " \n" + "                             Int: " + ((Weapon) secondItem).getBonusIntuition());
+        }
+        else if(firstItem instanceof Armor && secondItem instanceof Armor) {
+            builder.setMessage(firstItem.getName() + "   " + secondItem.getName() + "\n"
+                    + "Armor: " + ((Armor) firstItem).getDefense() + "\n" + "                             Armor: " + ((Armor) secondItem).getDefense() + "\n"
+                    + "Warding: " + ((Armor) firstItem).getWarding() + " \n" + "                             Warding: " + ((Armor) secondItem).getWarding());
+        }
+        builder.setPositiveButton("Equip", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                changer.changeWeapon(position);
+                updateInventoryList();
+                notifyItemChanged(inventoryPosition);
+            }
+        });
+
+        builder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
     @Override
@@ -165,6 +206,17 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             }
         });
 
+        holder.equipCompare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ((findItem(inventory.get(position)) instanceof Helmet)) {
+                    showCompareDialog(Player.equipment[0], position, holder.getAdapterPosition());
+                } else {
+                    showCompareDialog(Player.equipment[1], position, holder.getAdapterPosition());
+                }
+            }
+        });
+
 
     }
 
@@ -199,6 +251,13 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                 updateInventoryList();
                 notifyItemChanged(holder.getAdapterPosition());
 
+            }
+        });
+
+        holder.weaponCompare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               showCompareDialog(Player.equipment[2], position, holder.getAdapterPosition());
             }
         });
     }

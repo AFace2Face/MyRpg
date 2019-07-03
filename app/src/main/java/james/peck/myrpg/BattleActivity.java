@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import static james.peck.myrpg.Attack.AttackList;
 import static james.peck.myrpg.Creature.CreatureList;
+import static james.peck.myrpg.Creature.Player;
 import static james.peck.myrpg.Defense.DefenseList;
 
 /**
@@ -35,7 +36,7 @@ public class BattleActivity extends AppCompatActivity {
     private TextView monsterHealth;
     private TextView monsterEnergy;
     private ArrayList<String> presentCreatures = new ArrayList<>();
-    public Creature Player;
+
 
 
     public void onCreate(Bundle savedInstanceState)
@@ -94,9 +95,7 @@ public class BattleActivity extends AppCompatActivity {
         playerEnergy = ScreenView.findViewById(R.id.ep);
         monsterHealth = ScreenView.findViewById(R.id.mhp);
         monsterEnergy = ScreenView.findViewById(R.id.mep);
-        Player = new Creature("James", 100, 100, 10, 8, 10, true);
-        Player.setArmor(5);
-        Player.setWarding(10);
+
         Creature monster = CreatureList.get("largeFrog").spawnNewCopy();
         Player.knownAttacks.add("maceStrike");
         Player.knownAttacks.add("fireBall");
@@ -160,6 +159,8 @@ public class BattleActivity extends AppCompatActivity {
         Player.inventory.add("runicArmor");
         Player.inventory.add("avariceCrown");
 
+        SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext());  save.playerSave();
+
 
         Monster = monster;
 
@@ -198,8 +199,6 @@ public class BattleActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        SaveLoadPlayer loader = new SaveLoadPlayer(getBaseContext());
-        Player = loader.playerLoad();
     }
 
     /**

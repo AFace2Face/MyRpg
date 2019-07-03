@@ -6,15 +6,14 @@ import james.peck.myrpg.Items.Body;
 import james.peck.myrpg.Items.Helmet;
 
 import static james.peck.myrpg.Items.Equipment.gearList;
+import static james.peck.myrpg.Creature.Player;
 
 public class EquipmentChanger {
 
-    Creature Player;
     SaveLoadPlayer saveLoadPlayer;
 
     public EquipmentChanger(Context context) {
         saveLoadPlayer = new SaveLoadPlayer(context);
-        Player = saveLoadPlayer.playerLoad();
     }
 
     public void changeWeapon(int position) {

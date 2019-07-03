@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         AttackBuilder Attacks = new AttackBuilder();   Attacks.BuildList();
-        CreatureDic Creatures = new CreatureDic(); Creatures.BuildDic();
+        CreatureDic Creatures = new CreatureDic(); Creatures.BuildDic(); Creatures.makePlayer(getBaseContext());
         ItemLexicon items = new ItemLexicon(); items.fillLexicon();
 
 

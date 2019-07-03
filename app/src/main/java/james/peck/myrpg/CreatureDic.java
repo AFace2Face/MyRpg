@@ -1,8 +1,11 @@
 package james.peck.myrpg;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 import static james.peck.myrpg.Creature.CreatureList;
+import static james.peck.myrpg.Creature.Player;
 /**
  * Created by James on 1/31/2019.
  */
@@ -32,4 +35,12 @@ public class CreatureDic {
         }
         return presentCreatures;
     }
+
+    public void makePlayer(Context context)
+    {
+        Player = new Creature("James", 100, 100, 10, 8, 10, true);
+        SaveLoadPlayer saver = new SaveLoadPlayer(Player, context); saver.playerSave();
+    }
+
+
 }
