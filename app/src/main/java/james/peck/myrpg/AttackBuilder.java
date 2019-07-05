@@ -13,6 +13,27 @@ public class AttackBuilder {
 
     {
 
+        Attack smack = new Attack("Smack", 15, 5, "str", "bash");
+        AttackList.put("smack", smack);
+
+
+
+
+
+
+
+
+
+
+        Defense recoil = new Defense("Recoil", 10, 90, "agi", "guard");
+        DefenseList.put("recoil", recoil);
+
+
+
+
+
+
+
         Attack blowDart = new Attack("BlowDart", 10, 25, "agi", "pierce");
         AttackList.put("blowDart", blowDart);
         Attack maceStrike = new Attack("MaceStrike", 10, 25,"str", "bash");

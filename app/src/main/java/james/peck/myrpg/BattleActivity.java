@@ -97,7 +97,7 @@ public class BattleActivity extends AppCompatActivity {
         monsterEnergy = ScreenView.findViewById(R.id.mep);
 
         Creature monster = CreatureList.get("largeFrog").spawnNewCopy();
-        Player.knownAttacks.add("maceStrike");
+  /*     Player.knownAttacks.add("maceStrike");
         Player.knownAttacks.add("fireBall");
         Player.knownAttacks.add("Thrust");
         Player.knownAttacks.add("shoot");
@@ -157,7 +157,7 @@ public class BattleActivity extends AppCompatActivity {
         Player.inventory.add("avariceCrown");
         Player.inventory.add("runicArmor");
         Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
+        Player.inventory.add("avariceCrown");  */
 
         SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext());  save.playerSave();
 

@@ -171,6 +171,22 @@ public class Creature implements Serializable {
         this.extraIntuition = extraIntuition;
     }
 
+    public int getZone() {
+        return zone;
+    }
+
+    public void setZone(int zone) {
+        this.zone = zone;
+    }
+
+    public boolean isPlayer() {
+        return isPlayer;
+    }
+
+    public void setPlayer(boolean player) {
+        isPlayer = player;
+    }
+
     private int TurnProgress;
     private String Name;
     private int Health;
@@ -190,6 +206,9 @@ public class Creature implements Serializable {
     private int Warding = 0;
     private int gold = 0;
     private int level = 0;
+
+    private int zone = 0;
+
     public ArrayList<String> knownAttacks = new ArrayList<>();
     public ArrayList<String> knownDefenses = new ArrayList<>();
     public String equipment[] = {"head", "body", "weapon"};

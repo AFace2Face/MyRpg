@@ -9,4 +9,13 @@ public class Helmet extends Armor {
         this.defense = defense;
         this.warding = warding;
     }
+
+    public Helmet(String name, String description, int value, int defense, int warding)
+    {
+        this.name = name;
+        this.description = description;
+        this.value = value;
+        this.defense = defense;
+        this.warding = warding;
+    }
 }

@@ -1,13 +1,17 @@
 package james.peck.myrpg;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import static james.peck.myrpg.Creature.Player;
 
 public class InventoryActivity extends AppCompatActivity {
 
@@ -26,6 +30,18 @@ public class InventoryActivity extends AppCompatActivity {
 
 
         InitRecyclerView();
+        TextView gold = (findViewById(R.id.inventorygold));
+        gold.setText("Gold: " + Player.getGold());
+
+        Button character = findViewById(R.id.Character_Button);
+        character.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), CharacterActivity.class);
+                getBaseContext().startActivity(intent);
+                finish();
+            }
+        });
 
     }
 

@@ -1,5 +1,6 @@
 package james.peck.myrpg;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ public class CharacterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character);
+
         Button Character = (findViewById(R.id.Return_Button));
         Character.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v)
@@ -29,6 +31,17 @@ public class CharacterActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Button inventory = findViewById(R.id.Inventory_Button);
+        inventory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), InventoryActivity.class);
+                getBaseContext().startActivity(intent);
+                finish();
+            }
+        });
+
         View screenView = this.findViewById(android.R.id.content);
         TextView nameDisplay = screenView.findViewById(R.id.name_display);
         TextView goldDisplay = findViewById(R.id.gold_display);

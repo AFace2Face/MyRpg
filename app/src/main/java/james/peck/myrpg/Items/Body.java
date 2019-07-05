@@ -12,4 +12,13 @@ public class Body extends Armor {
         this.warding = warding;
     }
 
+    public Body(String name, String description, int value, int defense, int warding)
+    {
+        this.name = name;
+        this.description = description;
+        this.value = value;
+        this.defense = defense;
+        this.warding = warding;
+    }
+
 }
