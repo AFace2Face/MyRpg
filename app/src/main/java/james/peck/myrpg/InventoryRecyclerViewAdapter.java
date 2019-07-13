@@ -58,15 +58,15 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
         builder.setTitle("Compare Items");
         if ( firstItem instanceof Weapon) {
-            builder.setMessage(firstItem.getName() + "   " + secondItem.getName() + "\n"
-                            + "Str: " + ((Weapon) firstItem).getBonusStrength() +  "\n" + "                             Str: " + ((Weapon) secondItem).getBonusStrength() + "\n"
-                            + "Agi: " + ((Weapon) firstItem).getBonusAgility() +  " \n" + "                             Agi: " + ((Weapon) secondItem).getBonusAgility() + "\n"
-                            + "Int: " + ((Weapon) firstItem).getBonusIntuition()+ " \n" + "                             Int: " + ((Weapon) secondItem).getBonusIntuition());
+            builder.setMessage(firstItem.getName() + "      " + secondItem.getName() + "\n"
+                            + "Str: " + ((Weapon) firstItem).getBonusStrength() +  "\n" + "                               Str: " + ((Weapon) secondItem).getBonusStrength() + "\n"
+                            + "Agi: " + ((Weapon) firstItem).getBonusAgility() +  " \n" + "                               Agi: " + ((Weapon) secondItem).getBonusAgility() + "\n"
+                            + "Int: " + ((Weapon) firstItem).getBonusIntuition()+ " \n" + "                               Int: " + ((Weapon) secondItem).getBonusIntuition());
         }
         else if(firstItem instanceof Armor && secondItem instanceof Armor) {
-            builder.setMessage(firstItem.getName() + "   " + secondItem.getName() + "\n"
-                    + "Armor: " + ((Armor) firstItem).getDefense() + "\n" + "                             Armor: " + ((Armor) secondItem).getDefense() + "\n"
-                    + "Warding: " + ((Armor) firstItem).getWarding() + " \n" + "                             Warding: " + ((Armor) secondItem).getWarding());
+            builder.setMessage(firstItem.getName() + "      " + secondItem.getName() + "\n"
+                    + "Armor: " + ((Armor) firstItem).getDefense() + "\n" + "                               Armor: " + ((Armor) secondItem).getDefense() + "\n"
+                    + "Warding: " + ((Armor) firstItem).getWarding() + " \n" + "                               Warding: " + ((Armor) secondItem).getWarding());
         }
         builder.setPositiveButton("Equip", new DialogInterface.OnClickListener() {
             @Override
@@ -88,6 +88,7 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         dialog.show();
 
     }
+
 
     @Override
     public int getItemViewType(int position) {

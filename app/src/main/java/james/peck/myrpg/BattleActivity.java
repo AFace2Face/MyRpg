@@ -97,6 +97,8 @@ public class BattleActivity extends AppCompatActivity {
         monsterEnergy = ScreenView.findViewById(R.id.mep);
 
         Creature monster = CreatureList.get("largeFrog").spawnNewCopy();
+
+
   /*     Player.knownAttacks.add("maceStrike");
         Player.knownAttacks.add("fireBall");
         Player.knownAttacks.add("Thrust");
@@ -178,7 +180,7 @@ public class BattleActivity extends AppCompatActivity {
             getBaseContext().startActivity(intent);
 
         }
-    });
+        });
 
         Button inventory = (ScreenView.findViewById(R.id.Return_Button));
         inventory.setOnClickListener(new View.OnClickListener() {
@@ -187,7 +189,15 @@ public class BattleActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), InventoryActivity.class);
                 SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext()); save.playerSave();
                 getBaseContext().startActivity(intent);
+            }
+        });
 
+        Button retreat = (ScreenView.findViewById(R.id.retreat_button));
+        retreat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), TownActivity.class);
+                getBaseContext().startActivity(intent);
             }
         });
 
