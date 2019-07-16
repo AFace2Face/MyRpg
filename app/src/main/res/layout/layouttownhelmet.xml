@@ -2,82 +2,104 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout4"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/comment_background">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/headShopName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
+        android:textColor="@android:color/white"
         android:textSize="25sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView7"
+        app:layout_constraintEnd_toStartOf="@+id/headShopValue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/headShopValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="TextView"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/headShopDetails"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/headShopDetails"
         android:layout_width="0dp"
         android:layout_height="140dp"
+        android:background="@color/inventoryThird"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/headShopName">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/headShopText"
             android:layout_width="0dp"
             android:layout_height="90dp"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
             android:text="TextView"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toStartOf="@+id/headShopArmor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/headShopArmor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:text="TextView"
-            tools:layout_editor_absoluteX="324dp"
-            tools:layout_editor_absoluteY="16dp" />
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/headShopWarding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/headShopCompare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Compare"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/headShopText"
+            app:layout_constraintTop_toBottomOf="@+id/headShopText" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/headShopWarding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:text="TextView"
-            tools:layout_editor_absoluteX="323dp"
-            tools:layout_editor_absoluteY="60dp" />
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headShopArmor" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/headShopBuy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="90dp" />
-
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            tools:layout_editor_absoluteX="284dp"
-            tools:layout_editor_absoluteY="90dp" />
+            android:text="Purchase"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/headShopText"
+            app:layout_constraintTop_toBottomOf="@+id/headShopText" />
 
     </android.support.constraint.ConstraintLayout>
 

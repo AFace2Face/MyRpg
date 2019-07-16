@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         if (Player != null) loadGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), BattleActivity.class);
+                Intent intent = new Intent(getBaseContext(), TownActivity.class);
                 getBaseContext().startActivity(intent);
             }
         });
@@ -77,11 +77,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Player = new Creature(input.getText().toString(), 100, 100, 10, 10, 10, true);
                 Player.equipment[0] ="hardhat";
-                Player.equipment[1] ="clothshirt";
+                Player.equipment[1] ="tatteredshirt";
                 Player.equipment[2] ="longstick";
                 Player.knownAttacks.add("smack");
                 Player.knownDefenses.add("recoil");
-                Intent intent = new Intent(getBaseContext(), BattleActivity.class);
+                Player.findNewStats();
+                Player.setLevel(1);
+                Intent intent = new Intent(getBaseContext(), TownActivity.class);
                 getBaseContext().startActivity(intent);
 
                 Player.inventory.add("runicArmor");

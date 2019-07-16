@@ -4,86 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TownActivity">
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </android.support.constraint.ConstraintLayout>
+    tools:context=".TownActivity"
+    tools:visibility="visible">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/town_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <Button
             android:id="@+id/button6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="107dp"
+            android:layout_marginTop="138dp"
             android:text="Button"
-            tools:layout_editor_absoluteX="258dp"
-            tools:layout_editor_absoluteY="472dp" />
+            app:layout_constraintStart_toEndOf="@+id/button5"
+            app:layout_constraintTop_toBottomOf="@+id/button4" />
 
         <Button
             android:id="@+id/button4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="107dp"
+            android:layout_marginTop="133dp"
             android:text="Button"
-            tools:layout_editor_absoluteX="258dp"
-            tools:layout_editor_absoluteY="286dp" />
+            app:layout_constraintStart_toEndOf="@+id/button2"
+            app:layout_constraintTop_toBottomOf="@+id/button3" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="63dp"
+            android:layout_marginTop="133dp"
             android:text="Button"
-            tools:layout_editor_absoluteX="63dp"
-            tools:layout_editor_absoluteY="286dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/armorShop" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/armorShop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="63dp"
+            android:layout_marginTop="105dp"
             android:text="Button"
-            tools:layout_editor_absoluteX="63dp"
-            tools:layout_editor_absoluteY="105dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/button5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="63dp"
+            android:layout_marginTop="138dp"
             android:text="Button"
-            tools:layout_editor_absoluteX="63dp"
-            tools:layout_editor_absoluteY="472dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button2" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="107dp"
+            android:layout_marginTop="105dp"
             android:text="Button"
-            tools:layout_editor_absoluteX="258dp"
-            tools:layout_editor_absoluteY="105dp" />
+            app:layout_constraintStart_toEndOf="@+id/armorShop"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

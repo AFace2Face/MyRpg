@@ -29,7 +29,7 @@ public class InventoryActivity extends AppCompatActivity {
         });
 
 
-        InitRecyclerView();
+        initRecyclerView();
         TextView gold = (findViewById(R.id.inventorygold));
         gold.setText("Gold: " + Player.getGold());
 
@@ -45,7 +45,7 @@ public class InventoryActivity extends AppCompatActivity {
 
     }
 
-    private void InitRecyclerView() {
+    private void initRecyclerView() {
         RecyclerView inventoryList = findViewById(R.id.itemView);
         InventoryRecyclerViewAdapter adapter = new InventoryRecyclerViewAdapter(this);
         inventoryList.setAdapter(adapter);

@@ -304,7 +304,7 @@ public class BattleActivity extends AppCompatActivity {
             Monster.setEnergy(Monster.getEnergy() - (CurrentAttack.getDrain())/4);
         }
         Player.setHealth(Player.getHealth() - findDamage(CurrentAttack.getDamage(), findStatBonus(Monster, CurrentAttack), findStatBonus(Player, defense), defense.getImpairment(), Bonus, Player.getArmor()));
-        Player.setEnergy(Player.getEnergy() - (findDamage(CurrentAttack.getDamage(), findStatBonus(Monster, CurrentAttack), findStatBonus(Player, defense), defense.getDrain(), Bonus, Player.getWarding()))/3);
+        Player.setEnergy(Player.getEnergy() - (findDamage(CurrentAttack.getDamage(), findStatBonus(Monster, CurrentAttack), findStatBonus(Player, defense), defense.getDrain(), Bonus, Player.getWarding()))); // maybe divide warding by 1/3
         battleLog.setText //(battlelog.getText()+ "\n" +
                 (Player.getName() + " Took " + (health - Player.getHealth()));
         updateLifeForce();
@@ -353,7 +353,7 @@ public class BattleActivity extends AppCompatActivity {
             Player.setEnergy(Player.getEnergy() - (attack.getDrain())/5);
         }
         Monster.setHealth(Monster.getHealth() - findDamage(attack.getDamage(), findStatBonus(Player, attack), findStatBonus(Monster, CurrentDefense), CurrentDefense.getImpairment(), Bonus, Monster.getArmor()));
-        Monster.setEnergy(Monster.getEnergy() - (findDamage(attack.getDamage(), findStatBonus(Player, attack), findStatBonus(Monster, CurrentDefense), CurrentDefense.getDrain(), Bonus, Monster.getWarding()))/3);
+        Monster.setEnergy(Monster.getEnergy() - (findDamage(attack.getDamage(), findStatBonus(Player, attack), findStatBonus(Monster, CurrentDefense), CurrentDefense.getDrain(), Bonus, Monster.getWarding())));  //  maybe divide warding by 1/3
         battleLog.setText //(battlelog.getText()+ "\n" +
                 (Monster.getName() + " Took " + (health - Monster.getHealth()));
         updateLifeForce();
