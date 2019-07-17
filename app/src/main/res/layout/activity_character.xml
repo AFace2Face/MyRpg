@@ -189,10 +189,10 @@
         android:id="@+id/head_armor_name"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginEnd="40dp"
         android:text="Head: Iron Full helm"
         android:textColor="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/head_armor_stats"
+        app:layout_constraintStart_toStartOf="@+id/head_armor_stats"
         app:layout_constraintTop_toTopOf="@+id/strength_display" />
 
     <TextView
@@ -202,7 +202,8 @@
         android:layout_marginTop="32dp"
         android:text="Body: Battlemage Gear"
         android:textColor="@android:color/darker_gray"
-        app:layout_constraintStart_toStartOf="@+id/head_armor_name"
+        app:layout_constraintEnd_toEndOf="@+id/body_armor_stats"
+        app:layout_constraintStart_toStartOf="@+id/body_armor_stats"
         app:layout_constraintTop_toBottomOf="@+id/head_armor_name" />
 
     <TextView
@@ -212,7 +213,8 @@
         android:layout_marginTop="32dp"
         android:text="Weapon: Arcane Staff"
         android:textColor="@android:color/darker_gray"
-        app:layout_constraintStart_toStartOf="@+id/head_armor_name"
+        app:layout_constraintEnd_toEndOf="@+id/weapon_stats"
+        app:layout_constraintStart_toStartOf="@+id/weapon_stats"
         app:layout_constraintTop_toBottomOf="@+id/body_armor_name" />
 
     <TextView
@@ -220,9 +222,11 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
         android:text="40 Armor 0 Warding"
         android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="@+id/head_armor_name"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/head_armor_name" />
 
     <TextView
@@ -232,7 +236,8 @@
         android:layout_marginTop="8dp"
         android:text="10 Armor 250 Warding"
         android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="@+id/head_armor_name"
+        app:layout_constraintEnd_toEndOf="@+id/head_armor_stats"
+        app:layout_constraintStart_toStartOf="@+id/head_armor_stats"
         app:layout_constraintTop_toBottomOf="@+id/body_armor_name" />
 
     <TextView
@@ -242,6 +247,7 @@
         android:layout_marginTop="8dp"
         android:text="2 str 10 int 1 agi"
         android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="@+id/head_armor_name"
+        app:layout_constraintEnd_toEndOf="@+id/head_armor_stats"
+        app:layout_constraintStart_toStartOf="@+id/head_armor_stats"
         app:layout_constraintTop_toBottomOf="@+id/weapon_name" />
 </android.support.constraint.ConstraintLayout>

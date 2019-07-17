@@ -48,6 +48,11 @@ public class BattleActivity extends AppCompatActivity {
         BattleStart();
     }
 
+    @Override
+    public void onBackPressed() {
+        // Disable back button in the battle screen adding retreat confirm later
+    }
+
     /**
      *
      * @param

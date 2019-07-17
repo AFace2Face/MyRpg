@@ -35,6 +35,15 @@ public class TownActivity extends AppCompatActivity {
                 getBaseContext().startActivity(intent);
             }
         });
+
+        Button dungeonEntrance = findViewById(R.id.dungeonEntrance);
+        dungeonEntrance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), BattleActivity.class);
+                getBaseContext().startActivity(intent);
+            }
+        });
     }
 
 

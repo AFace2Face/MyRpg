@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import james.peck.myrpg.Items.Body;
@@ -60,24 +62,23 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         View view;
-        //      switch (viewType) {
-        //          case HELMET:
+              switch (viewType) {
+                  case HELMET:
         view = inflater.inflate(R.layout.layouttownhelmet, parent, false);
         viewHolder = new TownHelmetViewHolder(view);
-        //              break;
- /*           case BODY:
-                view = inflater.inflate(R.layout.layoutinventoryequipment, parent, false);
-                viewHolder = new EquipViewHolder(view);
+                     break;
+            case BODY:
+                view = inflater.inflate(R.layout.layouttownbody, parent, false);
+                viewHolder = new TownBodyViewHolder(view);
                 break;
-            case WEAPON:
-                view = inflater.inflate(R.layout.layoutinventoryweapon, parent, false);
+/*                view = inflater.inflate(R.layout.layoutinventoryweapon, parent, false);
                 viewHolder = new WeaponViewHolder(view);
-                break;
+                break; */
             default:
                 view = inflater.inflate(R.layout.layoutinventoryitem, parent, false);
-                viewHolder = new ItemViewHolder(view);
+                viewHolder = new TownHelmetViewHolder(view);
                 break;
-        } */
+        }
         return viewHolder;
     }
 
@@ -90,11 +91,11 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 TownHelmetViewHolder holder1 = (TownHelmetViewHolder) holder;
                 configureTownHelmetViewHolder(holder1, position);
                 break;
- /*           case EQUIP:
-                EquipViewHolder holder2 = (EquipViewHolder) holder;
-                configureEquipViewHolder(holder2, position);
+            case BODY:
+                TownBodyViewHolder holder2 = (TownBodyViewHolder) holder;
+                configureTownBodyViewHolder(holder2, position);
                 break;
-            case WEAPON:
+ /*           case WEAPON:
                 WeaponViewHolder holder3 = (WeaponViewHolder) holder;
                 configureWeaponViewHolder(holder3, position);
                 break; */
@@ -135,6 +136,33 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     }
 
+    public void configureTownBodyViewHolder(final  TownBodyViewHolder holder, int position) {
+        Body armor = (Body)findItem(displayList.get(position));
+
+        holder.bodyShopName.setText(armor.getName());
+        holder.bodyShopValue.setText(armor.getValue() + " Gold");
+        holder.bodyShopText.setText(armor.getDescription());
+        holder.bodyShopArmor.setText(armor.getDefense() + " Armor");
+        holder.bodyShopWarding.setText(armor.getWarding() + " Warding");
+
+
+        final boolean isExpanded = position == expandedPosition;
+        holder.bodyShopDetails.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.itemView.setActivated(isExpanded);
+        if(isExpanded)
+            previousExpandedPosition = position;
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandedPosition = isExpanded ? -1 : holder.getAdapterPosition();
+                notifyItemChanged(previousExpandedPosition);
+                notifyItemChanged(holder.getAdapterPosition());
+            }
+        });
+    }
+
 
     public class TownHelmetViewHolder extends RecyclerView.ViewHolder {
 
@@ -158,6 +186,29 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             headShopBuy = itemView.findViewById(R.id.headShopBuy);
             headShopDetails = itemView.findViewById(R.id.headShopDetails);
 
+        }
+    }
+
+    public class TownBodyViewHolder extends  RecyclerView.ViewHolder {
+        TextView bodyShopName;
+        TextView bodyShopValue;
+        TextView bodyShopText;
+        TextView bodyShopArmor;
+        TextView bodyShopWarding;
+        Button bodyShopCompare;
+        Button bodyShopBuy;
+        ConstraintLayout bodyShopDetails;
+
+        public TownBodyViewHolder(View itemView) {
+            super(itemView);
+            bodyShopName = itemView.findViewById(R.id.BodyShopName);
+            bodyShopValue = itemView.findViewById(R.id.BodyShopValue);
+            bodyShopText = itemView.findViewById(R.id.BodyShopText);
+            bodyShopArmor = itemView.findViewById(R.id.BodyShopArmor);
+            bodyShopWarding = itemView.findViewById(R.id.BodyShopWarding);
+            bodyShopCompare = itemView.findViewById(R.id.BodyShopCompare);
+            bodyShopBuy = itemView.findViewById(R.id.BodyShopBuy);
+            bodyShopDetails = itemView.findViewById(R.id.BodyShopDetails);
         }
     }
 
