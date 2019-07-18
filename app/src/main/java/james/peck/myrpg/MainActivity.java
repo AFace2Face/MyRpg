@@ -86,14 +86,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), TownActivity.class);
                 getBaseContext().startActivity(intent);
 
-                Player.inventory.add("runicArmor");
-                Player.inventory.add("avariceCrown");
-                Player.inventory.add("runicArmor");
-                Player.inventory.add("runicArmor");
-                Player.inventory.add("avariceCrown");
-                Player.inventory.add("avariceCrown");
-                Player.inventory.add("avariceCrown");
-                Player.inventory.add("runicArmor");
+
+
+                Player.setGold(1000);
 
             }
         });

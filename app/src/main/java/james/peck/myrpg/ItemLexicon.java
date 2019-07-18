@@ -11,6 +11,7 @@ import static james.peck.myrpg.Items.Equipment.gearList;
 public class ItemLexicon {
 
     public static ArrayList<ArrayList<String>> armorShopCatalog = new ArrayList<>(2);
+    public static ArrayList<ArrayList<String>> weaponShopCatalog = new ArrayList<>(7);
 
     public void fillLexicon()
     {
@@ -21,9 +22,6 @@ public class ItemLexicon {
 
         Body tatteredShirt = new Body("Tattered clothes", " tattered clothes you were wearing when you started your adventures", 3, 1, 3);
         gearList.put("tatteredshirt", tatteredShirt);
-
-        Weapon longStick = new Weapon("Longstick", "a sturdy stick as just longer then your arm", 1, 1, 1, 1);
-        gearList.put("longstick", longStick);
 
 
         // Tier 1 armor below light/medium/heavy
@@ -48,6 +46,51 @@ public class ItemLexicon {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Start of weapons beginning with Tier 0
+        Weapon longStick = new Weapon("Longstick", "a sturdy stick just longer then your arm", 1, 1, 1, 1);
+        gearList.put("longstick", longStick);
+
+
+
+        //Tier .5 weapons
+        Weapon stoneDagger = new Weapon("Stone dagger", "a crude stone dagger better at cutting then a stick but not by much", 6, 1,2,1);
+        gearList.put("stonedagger", stoneDagger);
+
+        Weapon brokenSword = new Weapon("Broken sword", "with the copper blade broken you could this call it a big knife", 8, 3, 1, 1);
+        gearList.put("brokensword", brokenSword);
+
+        Weapon fakeWand = new Weapon("Fake wand", "a stick fashioned to look like a wand, but void of anything the really helps you cast magic", 8, 1, 2, 2);
+        gearList.put("fakewand", fakeWand);
+
+
+        //Tier 1 weapons - started of actual somewhat proper weapons
+        Weapon copperSword = new Weapon("Copper sword", "A simple copper blade both afforable and well balanced, as long as you don't hit something too hard it will hold up fine", 50, 4, 2, 1);
+        gearList.put("coppersword", copperSword);
+
+        Weapon shortBow = new Weapon("Short bow", "Small rough bow made from a tree near the town, if you pull to hard it might just snap", 40, 1, 4, 1);
+        gearList.put("shortbow", shortBow);
+
+        Weapon beginnerStaff = new Weapon("beginner staff", "Basic carved staff made for those just starting to attempt magic, helps you focus but doesn't hit things well", 45, 1, 2, 3);
+        gearList.put("beginnerstaff", beginnerStaff);
+
+
+
+
+
         Weapon masterStaff = new Weapon("Master's Staff", 1000, 5, 2, 45);
         gearList.put("masterStaff", masterStaff);
 
@@ -66,12 +109,22 @@ public class ItemLexicon {
 
 
     private void makeShopCatalogs() {
+        //tier 0 armor
         ArrayList<String> armorShopZero = new ArrayList<>();
         armorShopZero.add("hardhat");
         armorShopZero.add("tatteredshirt");
         armorShopCatalog.add(0, armorShopZero);
 
+        //tier 0 and .5 weapons
+        ArrayList<String> weaponShopZero = new ArrayList<>();
+        weaponShopZero.add("longstick");
+        weaponShopZero.add("stonedagger");
+        weaponShopZero.add("brokensword");
+        weaponShopZero.add("fakewand");
+        weaponShopCatalog.add(0, weaponShopZero);
 
+
+        //Tier 1 Armor
         ArrayList<String> armorShopOne = new ArrayList<>();
         armorShopOne.add("clothhat");
         armorShopOne.add("clothoutfit");
@@ -79,7 +132,14 @@ public class ItemLexicon {
         armorShopOne.add("paddedarmor");
         armorShopOne.add("ironhelmet");
         armorShopOne.add("oldlamellar");
-        armorShopCatalog.add(armorShopOne);
+        armorShopCatalog.add(1, armorShopOne);
+
+        //Tier 1 Weapons
+        ArrayList<String> weaponShopOne = new ArrayList<>();
+        weaponShopOne.add("coppersword");
+        weaponShopOne.add("shortbow");
+        weaponShopOne.add("beginnerstaff");
+        weaponShopCatalog.add(1, weaponShopOne);
     }
 }
 

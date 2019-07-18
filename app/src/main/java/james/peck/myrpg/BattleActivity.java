@@ -103,69 +103,6 @@ public class BattleActivity extends AppCompatActivity {
 
         Creature monster = CreatureList.get("largeFrog").spawnNewCopy();
 
-
-  /*     Player.knownAttacks.add("maceStrike");
-        Player.knownAttacks.add("fireBall");
-        Player.knownAttacks.add("Thrust");
-        Player.knownAttacks.add("shoot");
-
-        Player.knownDefenses.add("counterSwing");
-        Player.knownDefenses.add("simpleWard");
-        Player.knownDefenses.add("solidBlock");
-        Player.knownDefenses.add("dodgeAttack");
-
-        Player.equipment[0] = "avariceCrown";
-        Player.equipment[1] = "runicArmor";
-        Player.equipment[2] = "CopperBlade";
-        Player.findNewStats();
-
-        Player.inventory.add("masterStaff");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("runicArmor");
-        Player.inventory.add("avariceCrown");  */
-
         SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext());  save.playerSave();
 
 

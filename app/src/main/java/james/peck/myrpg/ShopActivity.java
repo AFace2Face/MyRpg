@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import static james.peck.myrpg.Creature.Player;
 import static james.peck.myrpg.ItemLexicon.armorShopCatalog;
+import static james.peck.myrpg.ItemLexicon.weaponShopCatalog;
 
 public class ShopActivity extends AppCompatActivity {
 
@@ -26,15 +27,29 @@ public class ShopActivity extends AppCompatActivity {
             case ARMOR:
                 fillArmorShop();
                 break;
+            case WEAPON:
+                fillWeaponShop();
+                break;
         }
     }
 
     private void fillArmorShop() {
         int i = 0;
         ArrayList<String> armorList;
-       while (i <= Player.getLevel()) {
+        while (i <= Player.getLevel()) {
             armorList = armorShopCatalog.get(i);
             displayList.addAll(armorList);
+            i++;
+        }
+        initRecyclerView(displayList);
+    }
+
+    private void fillWeaponShop() {
+        int i = 0;
+        ArrayList<String> weaponList;
+        while ( i <= Player.getLevel()) {
+            weaponList = weaponShopCatalog.get(i);
+            displayList.addAll(weaponList);
             i++;
         }
         initRecyclerView(displayList);

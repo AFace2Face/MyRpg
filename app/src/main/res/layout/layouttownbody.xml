@@ -7,27 +7,27 @@
     android:background="@drawable/comment_background">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/BodyShopDetails"
+        android:id="@+id/bodyShopDetails"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:background="@color/inventoryThird"
-        app:layout_constraintTop_toBottomOf="@+id/BodyShopName"
+        app:layout_constraintTop_toBottomOf="@+id/bodyShopName"
         tools:layout_editor_absoluteX="0dp">
 
         <TextView
-            android:id="@+id/BodyShopText"
+            android:id="@+id/bodyShopText"
             android:layout_width="0dp"
             android:layout_height="90dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="24dp"
             android:text="TextView"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toStartOf="@+id/BodyShopArmor"
+            app:layout_constraintEnd_toStartOf="@+id/bodyShopArmor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/BodyShopArmor"
+            android:id="@+id/bodyShopArmor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -36,12 +36,12 @@
             android:text="TextView"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/BodyShopWarding"
+            app:layout_constraintBottom_toTopOf="@+id/bodyShopWarding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/BodyShopWarding"
+            android:id="@+id/bodyShopWarding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -52,29 +52,29 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/BodyShopArmor" />
+            app:layout_constraintTop_toBottomOf="@+id/bodyShopArmor" />
 
         <Button
-            android:id="@+id/BodyShopCompare"
+            android:id="@+id/bodyShopCompare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Button"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/BodyShopText"
-            app:layout_constraintTop_toBottomOf="@+id/BodyShopText" />
+            app:layout_constraintStart_toStartOf="@+id/bodyShopText"
+            app:layout_constraintTop_toBottomOf="@+id/bodyShopText" />
 
         <Button
-            android:id="@+id/BodyShopBuy"
+            android:id="@+id/bodyShopBuy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Purchase"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/BodyShopText"
-            app:layout_constraintTop_toBottomOf="@+id/BodyShopText" />
+            app:layout_constraintEnd_toEndOf="@+id/bodyShopText"
+            app:layout_constraintTop_toBottomOf="@+id/bodyShopText" />
     </android.support.constraint.ConstraintLayout>
 
     <TextView
-        android:id="@+id/BodyShopName"
+        android:id="@+id/bodyShopName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -82,13 +82,13 @@
         android:text="TextView"
         android:textColor="@android:color/white"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/BodyShopDetails"
-        app:layout_constraintEnd_toStartOf="@+id/BodyShopValue"
+        app:layout_constraintBottom_toTopOf="@+id/bodyShopDetails"
+        app:layout_constraintEnd_toStartOf="@+id/bodyShopValue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/BodyShopValue"
+        android:id="@+id/bodyShopValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -98,9 +98,9 @@
         android:text="TextView"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/BodyShopName"
+        app:layout_constraintBottom_toBottomOf="@+id/bodyShopName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/BodyShopName"
-        app:layout_constraintTop_toTopOf="@+id/BodyShopName" />
+        app:layout_constraintStart_toEndOf="@+id/bodyShopName"
+        app:layout_constraintTop_toTopOf="@+id/bodyShopName" />
 
 </android.support.constraint.ConstraintLayout>

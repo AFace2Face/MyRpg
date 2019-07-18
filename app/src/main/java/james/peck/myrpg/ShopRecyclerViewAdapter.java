@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import james.peck.myrpg.Items.Body;
@@ -18,6 +16,7 @@ import james.peck.myrpg.Items.Helmet;
 import james.peck.myrpg.Items.Item;
 import james.peck.myrpg.Items.Weapon;
 
+import static james.peck.myrpg.Creature.Player;
 import static james.peck.myrpg.Items.Equipment.gearList;
 
 public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -62,18 +61,19 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         View view;
-              switch (viewType) {
-                  case HELMET:
-        view = inflater.inflate(R.layout.layouttownhelmet, parent, false);
-        viewHolder = new TownHelmetViewHolder(view);
-                     break;
+        switch (viewType) {
+            case HELMET:
+                view = inflater.inflate(R.layout.layouttownhelmet, parent, false);
+                viewHolder = new TownHelmetViewHolder(view);
+                break;
             case BODY:
                 view = inflater.inflate(R.layout.layouttownbody, parent, false);
                 viewHolder = new TownBodyViewHolder(view);
                 break;
-/*                view = inflater.inflate(R.layout.layoutinventoryweapon, parent, false);
-                viewHolder = new WeaponViewHolder(view);
-                break; */
+            case WEAPON:
+                view = inflater.inflate(R.layout.layouttownweapon, parent, false);
+                viewHolder = new TownWeaponViewHolder(view);
+                break;
             default:
                 view = inflater.inflate(R.layout.layoutinventoryitem, parent, false);
                 viewHolder = new TownHelmetViewHolder(view);
@@ -95,10 +95,10 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 TownBodyViewHolder holder2 = (TownBodyViewHolder) holder;
                 configureTownBodyViewHolder(holder2, position);
                 break;
- /*           case WEAPON:
-                WeaponViewHolder holder3 = (WeaponViewHolder) holder;
-                configureWeaponViewHolder(holder3, position);
-                break; */
+            case WEAPON:
+                TownWeaponViewHolder holder3 = (TownWeaponViewHolder) holder;
+                configureTownWeaponViewHolder(holder3, position);
+                break;
         }
 
     }
@@ -108,7 +108,7 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         return displayList.size();
     }
 
-    public void configureTownHelmetViewHolder(final TownHelmetViewHolder holder, int position) {
+    public void configureTownHelmetViewHolder(final TownHelmetViewHolder holder, final int position) {
         Helmet head = (Helmet)findItem(displayList.get(position));
 
         holder.headShopName.setText(head.getName());
@@ -136,8 +136,8 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     }
 
-    public void configureTownBodyViewHolder(final  TownBodyViewHolder holder, int position) {
-        Body armor = (Body)findItem(displayList.get(position));
+    public void configureTownBodyViewHolder(final  TownBodyViewHolder holder, final int position) {
+        final Body armor = (Body)findItem(displayList.get(position));
 
         holder.bodyShopName.setText(armor.getName());
         holder.bodyShopValue.setText(armor.getValue() + " Gold");
@@ -159,6 +159,59 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 expandedPosition = isExpanded ? -1 : holder.getAdapterPosition();
                 notifyItemChanged(previousExpandedPosition);
                 notifyItemChanged(holder.getAdapterPosition());
+            }
+        });
+
+        holder.bodyShopBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Player.getGold()>= armor.getValue() && armor.getValue() > 0) {
+                    Player.setGold(Player.getGold() - armor.getValue());
+                    Player.inventory.add(displayList.get(position));
+                }
+            }
+        });
+    }
+
+    public void configureTownWeaponViewHolder(final TownWeaponViewHolder holder, final int position) {
+        final Weapon weapon = (Weapon)findItem(displayList.get(position));
+
+        holder.weaponShopName.setText(weapon.getName());
+        if (weapon.getValue() > 0)
+            holder.weaponShopValue.setText(weapon.getValue() + " Gold");
+        else
+            holder.weaponShopValue.setText(" ");
+        holder.weaponShopText.setText(weapon.getDescription());
+        holder.weaponShopStrength.setText(weapon.getBonusStrength() + " Strength");
+        holder.weaponShopAgility.setText(weapon.getBonusAgility() + " Agility");
+        holder.weaponShopIntuition.setText(weapon.getBonusIntuition() + " Intuition");
+
+
+        final boolean isExpanded = position == expandedPosition;
+        holder.weaponShopDetails.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.itemView.setActivated(isExpanded);
+        if(isExpanded)
+            previousExpandedPosition = position;
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandedPosition = isExpanded ? -1 : holder.getAdapterPosition();
+                notifyItemChanged(previousExpandedPosition);
+                notifyItemChanged(holder.getAdapterPosition());
+            }
+        });
+
+        holder.weaponShopBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Player.getGold()>= weapon.getValue() && weapon.getValue() > 0) {
+                    Player.setGold(Player.getGold() - weapon.getValue());
+                    Player.inventory.add(displayList.get(position));
+                    expandedPosition = isExpanded ? -1 : holder.getAdapterPosition();
+                    notifyItemChanged(holder.getAdapterPosition());
+                }
             }
         });
     }
@@ -201,14 +254,39 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         public TownBodyViewHolder(View itemView) {
             super(itemView);
-            bodyShopName = itemView.findViewById(R.id.BodyShopName);
-            bodyShopValue = itemView.findViewById(R.id.BodyShopValue);
-            bodyShopText = itemView.findViewById(R.id.BodyShopText);
-            bodyShopArmor = itemView.findViewById(R.id.BodyShopArmor);
-            bodyShopWarding = itemView.findViewById(R.id.BodyShopWarding);
-            bodyShopCompare = itemView.findViewById(R.id.BodyShopCompare);
-            bodyShopBuy = itemView.findViewById(R.id.BodyShopBuy);
-            bodyShopDetails = itemView.findViewById(R.id.BodyShopDetails);
+            bodyShopName = itemView.findViewById(R.id.bodyShopName);
+            bodyShopValue = itemView.findViewById(R.id.bodyShopValue);
+            bodyShopText = itemView.findViewById(R.id.bodyShopText);
+            bodyShopArmor = itemView.findViewById(R.id.bodyShopArmor);
+            bodyShopWarding = itemView.findViewById(R.id.bodyShopWarding);
+            bodyShopCompare = itemView.findViewById(R.id.bodyShopCompare);
+            bodyShopBuy = itemView.findViewById(R.id.bodyShopBuy);
+            bodyShopDetails = itemView.findViewById(R.id.bodyShopDetails);
+        }
+    }
+
+    public class TownWeaponViewHolder extends RecyclerView.ViewHolder {
+        TextView weaponShopName;
+        TextView weaponShopValue;
+        TextView weaponShopText;
+        TextView weaponShopStrength;
+        TextView weaponShopAgility;
+        TextView weaponShopIntuition;
+        Button weaponShopCompare;
+        Button weaponShopBuy;
+        ConstraintLayout weaponShopDetails;
+
+        public  TownWeaponViewHolder(View itemView) {
+            super(itemView);
+            weaponShopName = itemView.findViewById(R.id.weaponShopName);
+            weaponShopValue = itemView.findViewById(R.id.weaponShopValue);
+            weaponShopText = itemView.findViewById(R.id.weaponShopText);
+            weaponShopStrength = itemView.findViewById(R.id.weaponShopStrength);
+            weaponShopAgility = itemView.findViewById(R.id.weaponShopAgility);
+            weaponShopIntuition = itemView.findViewById(R.id.weaponShopIntuition);
+            weaponShopCompare = itemView.findViewById(R.id.weaponShopCompare);
+            weaponShopBuy = itemView.findViewById(R.id.weaponShopBuy);
+            weaponShopDetails = itemView.findViewById(R.id.weaponShopDetails);
         }
     }
 
