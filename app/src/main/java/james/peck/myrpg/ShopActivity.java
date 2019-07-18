@@ -33,6 +33,9 @@ public class ShopActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * inflates the list of items to buy from the armor shop, as you level up you are able to buy better armor
+     */
     private void fillArmorShop() {
         int i = 0;
         ArrayList<String> armorList;
@@ -44,6 +47,9 @@ public class ShopActivity extends AppCompatActivity {
         initRecyclerView(displayList);
     }
 
+    /**
+     * inflates the list of items to buy from the weapon shop, as you level up you are able to buy better weapons
+     */
     private void fillWeaponShop() {
         int i = 0;
         ArrayList<String> weaponList;
@@ -55,6 +61,10 @@ public class ShopActivity extends AppCompatActivity {
         initRecyclerView(displayList);
     }
 
+    /**
+     * creates the list of items that are available to purchase based on the list has been passed
+     * @param displayList list of items that are being sold
+     */
     private void initRecyclerView(ArrayList displayList) {
         RecyclerView shopList = findViewById(R.id.ShopView);
         ShopRecyclerViewAdapter adapter = new ShopRecyclerViewAdapter(this, displayList);

@@ -138,8 +138,7 @@ public class BattleActivity extends AppCompatActivity {
         retreat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), TownActivity.class);
-                getBaseContext().startActivity(intent);
+                finish();
             }
         });
 
@@ -315,6 +314,10 @@ public class BattleActivity extends AppCompatActivity {
         monsterEnergy.setText("EP " + Monster.getEnergy() + "/" + Monster.getMEP());
     }
 
+    /**
+     * Checks the health of every thing fighting to see if the fight should continue
+     * @return returns a value based on if someone dies or they are all still alive
+     */
     private int stillFighting()
     {
         if(Player.getHealth() <= 0)

@@ -1,6 +1,5 @@
 package james.peck.myrpg;
 
-import android.content.Context;
 
 import java.util.ArrayList;
 
