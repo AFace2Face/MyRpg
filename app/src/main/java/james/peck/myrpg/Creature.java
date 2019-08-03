@@ -171,24 +171,17 @@ public class Creature implements Serializable {
         this.extraIntuition = extraIntuition;
     }
 
-    public int getZone() {
-        return zone;
-    }
-
-    public void setZone(int zone) {
-        this.zone = zone;
-    }
-
     public boolean isPlayer() {
         return isPlayer;
     }
 
-    public void setPlayer(boolean player) {
-        isPlayer = player;
+    public String getEncounter() {
+        return Encounter;
     }
 
     private int TurnProgress;
     private String Name;
+    private String Encounter;
     private int Health;
     private int Energy;
     private int Strength;
@@ -267,8 +260,9 @@ public class Creature implements Serializable {
         knownDefenses.add(firstDefense);
     }
 
-    public Creature(String name, int health, int energy, int strength, int agility, int intuition, int armor, int warding, String firstAttack, String firstDefense) {
+    public Creature(String name, String encounter, int health, int energy, int strength, int agility, int intuition, int armor, int warding, String firstAttack, String firstDefense) {
         Name = name;
+        Encounter = encounter;
         Health = health;
         Energy = energy;
         Strength = strength;
@@ -284,6 +278,7 @@ public class Creature implements Serializable {
 
     public Creature(final Creature copy){
         Name = copy.getName();
+        Encounter = copy.getEncounter();
         Health = copy.getHealth();
         Energy = copy.getEnergy();
         Strength = copy.getStrength();
@@ -307,7 +302,7 @@ public class Creature implements Serializable {
     }
 
     /**
-     * finds and stats all stats based on the current items equipped
+     * finds and sets all stats based on the current items equipped
      */
     public void findNewStats()
     {

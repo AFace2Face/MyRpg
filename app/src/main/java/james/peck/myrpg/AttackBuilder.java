@@ -9,11 +9,14 @@ import static james.peck.myrpg.Defense.DefenseList;
 
 public class AttackBuilder {
 
+    final int STR = 0, AGI = 1, INT = 2;
+    final int BASH = 2, PIERCE = 1, FIRE = 3, SLASH = 3;
+
     public void BuildList()
 
     {
 
-        Attack smack = new Attack("Smack", 15, 5, "str", "bash");
+        Attack smack = new Attack("Smack", 15, 9, STR, BASH);
         AttackList.put("smack", smack);
 
 
@@ -27,6 +30,25 @@ public class AttackBuilder {
 
         Defense recoil = new Defense("Recoil", 10, 90, "agi", "guard");
         DefenseList.put("recoil", recoil);
+
+
+
+
+
+
+
+
+
+
+        Attack wolfBite = new Attack("Wolf bite", 5, 9, STR, PIERCE);
+        AttackList.put("wolfBite", wolfBite);
+
+        Defense duck = new Defense("Duck", 60, 40, AGI, 0);
+        DefenseList.put("duck", duck);
+
+
+
+
 
 
 

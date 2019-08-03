@@ -45,6 +45,43 @@ public class BattleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_battle);
 
         ScreenView = findViewById(android.R.id.content);
+
+        battleLog = ScreenView.findViewById(R.id.battleLog);
+        moveList = ScreenView.findViewById(R.id.moveList);
+        playerHealth = ScreenView.findViewById(R.id.hp);
+        playerEnergy = ScreenView.findViewById(R.id.ep);
+        monsterHealth = ScreenView.findViewById(R.id.mhp);
+        monsterEnergy = ScreenView.findViewById(R.id.mep);
+
+        Button Character = (ScreenView.findViewById(R.id.Character_Button));
+        Character.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v)
+            {
+                Intent intent = new Intent(getBaseContext(), CharacterActivity.class);
+                SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext());  save.playerSave();
+                getBaseContext().startActivity(intent);
+
+            }
+        });
+
+        Button inventory = (ScreenView.findViewById(R.id.Return_Button));
+        inventory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), InventoryActivity.class);
+                SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext()); save.playerSave();
+                getBaseContext().startActivity(intent);
+            }
+        });
+
+        Button retreat = (ScreenView.findViewById(R.id.retreat_button));
+        retreat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         BattleStart();
     }
 
@@ -94,57 +131,15 @@ public class BattleActivity extends AppCompatActivity {
 
     public void BattleStart()
     {
-        battleLog = ScreenView.findViewById(R.id.battleLog);
-        moveList = ScreenView.findViewById(R.id.moveList);
-        playerHealth = ScreenView.findViewById(R.id.hp);
-        playerEnergy = ScreenView.findViewById(R.id.ep);
-        monsterHealth = ScreenView.findViewById(R.id.mhp);
-        monsterEnergy = ScreenView.findViewById(R.id.mep);
-
-        Creature monster = CreatureList.get("largeFrog").spawnNewCopy();
-
-        SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext());  save.playerSave();
-
-
-        Monster = monster;
-
-        Fighters.add(Player);
-        Fighters.add(Monster);
         CreatureDic myCreatureDic = new CreatureDic();
         presentCreatures = myCreatureDic.PopulateArea(1);
 
-        Button Character = (ScreenView.findViewById(R.id.Character_Button));
-        Character.setOnClickListener(new View.OnClickListener() {
-        public void onClick (View v)
-        {
-            Intent intent = new Intent(getBaseContext(), CharacterActivity.class);
-            SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext());  save.playerSave();
-            getBaseContext().startActivity(intent);
+        SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext());  save.playerSave();
+        Monster = CreatureList.get(presentCreatures.get(0)).spawnNewCopy();
 
-        }
-        });
-
-        Button inventory = (ScreenView.findViewById(R.id.Return_Button));
-        inventory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), InventoryActivity.class);
-                SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext()); save.playerSave();
-                getBaseContext().startActivity(intent);
-            }
-        });
-
-        Button retreat = (ScreenView.findViewById(R.id.retreat_button));
-        retreat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-
-
-        NextTurn();
+        Fighters.add(Player);
+        Fighters.add(Monster);
+        nextBattle();
     }
 
     @Override
@@ -159,6 +154,7 @@ public class BattleActivity extends AppCompatActivity {
     {
         takeRest();
         Monster = CreatureList.get(presentCreatures.get((int) (Math.random()* presentCreatures.size()))).spawnNewCopy();
+        battleLog.setText(Monster.getEncounter());
         Creature p = Fighters.get(0);
 
         for(int i = 0; i < Fighters.size(); i++)
