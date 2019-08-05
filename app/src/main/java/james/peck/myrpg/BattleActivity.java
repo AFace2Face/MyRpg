@@ -205,7 +205,7 @@ public class BattleActivity extends AppCompatActivity {
     {
         if(stillFighting() == 0)
         {
-            CurrentAttack = getAttack(Monster.knownAttacks.get(0));
+            CurrentAttack = getAttack(Monster.chooseAttack());
             makeButtons(Player.knownDefenses, false);
         }
         else if(stillFighting() == 1)

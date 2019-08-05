@@ -182,8 +182,8 @@ public class Creature implements Serializable {
     private int TurnProgress;
     private String Name;
     private String Encounter;
-    private int Health;
-    private int Energy;
+    protected int Health;
+    protected int Energy;
     private int Strength;
     private int baseStrength = 0;
     private int extraStrength = 0;
@@ -193,8 +193,8 @@ public class Creature implements Serializable {
     private int Intuition;
     private int baseIntuition = 0;
     private int extraIntuition = 0;
-    private int MHP;
-    private int MEP;
+    protected int MHP;
+    protected int MEP;
     private int Armor = 0;
     private int Warding = 0;
     private int gold = 0;
@@ -202,8 +202,8 @@ public class Creature implements Serializable {
 
     private int zone = 0;
 
-    public ArrayList<String> knownAttacks = new ArrayList<>();
-    public ArrayList<String> knownDefenses = new ArrayList<>();
+    protected ArrayList<String> knownAttacks = new ArrayList<>();
+    protected ArrayList<String> knownDefenses = new ArrayList<>();
     public String equipment[] = {"head", "body", "weapon"};
     public ArrayList<String> inventory = new ArrayList<>();
     private boolean isPlayer = false;
@@ -260,6 +260,20 @@ public class Creature implements Serializable {
         knownDefenses.add(firstDefense);
     }
 
+    public Creature(String name, String encounter, int health, int energy, int strength, int agility, int intuition, int armor, int warding) {
+        Name = name;
+        Encounter = encounter;
+        Health = health;
+        Energy = energy;
+        Strength = strength;
+        Agility = agility;
+        Intuition = intuition;
+        MHP = health;
+        MEP = energy;
+        Armor = armor;
+        Warding = warding;
+    }
+
     public Creature(String name, String encounter, int health, int energy, int strength, int agility, int intuition, int armor, int warding, String firstAttack, String firstDefense) {
         Name = name;
         Encounter = encounter;
@@ -290,6 +304,16 @@ public class Creature implements Serializable {
         MEP = Energy;
         knownAttacks.add(copy.knownAttacks.get(0));
         knownDefenses.add(copy.knownDefenses.get(0));
+    }
+
+
+
+    public String chooseAttack() {
+        if(knownAttacks.size() > 1) {
+            int i = (int)(Math.random() * knownAttacks.size());
+            return knownAttacks.get(i); }
+        else
+            return knownAttacks.get(1);
     }
 
     /**

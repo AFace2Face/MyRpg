@@ -18,6 +18,11 @@ public class CreatureDic {
         CreatureList.put("strayWolf", strayWolf);
 
 
+        //Zone 1 Boss/Mini Boss
+        Boss alphaWolf = new Boss("Alpha wolf", "A howl echos through the forest followed by a large wolf bursting threw the undergrowth", 200, 300, 10, 18, 3, 3, 5);
+        alphaWolf.knownAttacks.add("wolfBite");
+
+
 
 
 

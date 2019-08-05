@@ -15,9 +15,11 @@ public class AttackBuilder {
     public void BuildList()
 
     {
-
+        // Tier 0 (starting) attack
         Attack smack = new Attack("Smack", 15, 9, STR, BASH);
         AttackList.put("smack", smack);
+
+
 
 
 

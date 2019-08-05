@@ -109,7 +109,7 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public void configureTownHelmetViewHolder(final TownHelmetViewHolder holder, final int position) {
-        Helmet head = (Helmet)findItem(displayList.get(position));
+        final Helmet head = (Helmet)findItem(displayList.get(position));
 
         holder.headShopName.setText(head.getName());
         holder.headShopText.setText(head.getDescription());
@@ -131,6 +131,24 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 expandedPosition = isExpanded ? -1 : holder.getAdapterPosition();
                 notifyItemChanged(previousExpandedPosition);
                 notifyItemChanged(holder.getAdapterPosition());
+            }
+        });
+
+        /*
+         * purchases the item, adding it to the player inventory and removing the cost of the item
+         * then collapsed the view and replaces the name with 'purchased' to give some feedback
+         */
+        holder.headShopBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Player.getGold()>= head.getValue()) {
+                    Player.setGold(Player.getGold() - head.getValue());
+                    Player.inventory.add(displayList.get(position));
+                    expandedPosition = isExpanded ? -1 : holder.getAdapterPosition();
+                    holder.headShopDetails.setVisibility(View.GONE);
+                    holder.headShopName.setText("Purchased");
+
+                }
             }
         });
 
@@ -162,12 +180,20 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
         });
 
+        /*
+         * purchases the item, adding it to the player inventory and removing the cost of the item
+         * then collapsed the view and replaces the name with 'purchased' to give some feedback
+         */
         holder.bodyShopBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Player.getGold()>= armor.getValue() && armor.getValue() > 0) {
+                if(Player.getGold()>= armor.getValue()) {
                     Player.setGold(Player.getGold() - armor.getValue());
                     Player.inventory.add(displayList.get(position));
+                    expandedPosition = isExpanded ? -1 : holder.getAdapterPosition();
+                    holder.bodyShopDetails.setVisibility(View.GONE);
+                    holder.bodyShopName.setText("Purchased");
+
                 }
             }
         });
@@ -203,14 +229,19 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
         });
 
+        /*
+         * purchases the item, adding it to the player inventory and removing the cost of the item
+         * then collapsed the view and replaces the name with 'purchased' to give some feedback
+         */
         holder.weaponShopBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Player.getGold()>= weapon.getValue() && weapon.getValue() > 0) {
+                if(Player.getGold()>= weapon.getValue()) {
                     Player.setGold(Player.getGold() - weapon.getValue());
                     Player.inventory.add(displayList.get(position));
                     expandedPosition = isExpanded ? -1 : holder.getAdapterPosition();
-                    notifyItemChanged(holder.getAdapterPosition());
+                    holder.weaponShopDetails.setVisibility(View.GONE);
+                    holder.weaponShopName.setText("Purchased");
                 }
             }
         });

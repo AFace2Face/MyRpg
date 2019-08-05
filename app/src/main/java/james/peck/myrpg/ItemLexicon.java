@@ -13,6 +13,10 @@ public class ItemLexicon {
     public static ArrayList<ArrayList<String>> armorShopCatalog = new ArrayList<>(2);
     public static ArrayList<ArrayList<String>> weaponShopCatalog = new ArrayList<>(7);
 
+
+    /**
+     * adds items to the main item list and also later to the shops
+     */
     public void fillLexicon()
     {
 
@@ -61,30 +65,30 @@ public class ItemLexicon {
 
 
         // Start of weapons beginning with Tier 0
-        Weapon longStick = new Weapon("Longstick", "a sturdy stick just longer then your arm", 1, 1, 1, 1);
+        Weapon longStick = new Weapon("Longstick", "a sturdy stick just longer then your arm", 1, 1, 1, 1,true,false,false,false,false,true,true,false);
         gearList.put("longstick", longStick);
 
 
 
         //Tier .5 weapons
-        Weapon stoneDagger = new Weapon("Stone dagger", "a crude stone dagger better at cutting then a stick but not by much", 6, 1,2,1);
+        Weapon stoneDagger = new Weapon("Stone dagger", "a crude stone dagger better at cutting then a stick but not by much", 6, 1,2,1,true,false,true,true,false,false,false,true);
         gearList.put("stonedagger", stoneDagger);
 
-        Weapon brokenSword = new Weapon("Broken sword", "with the copper blade broken you could this call it a big knife", 8, 3, 1, 1);
+        Weapon brokenSword = new Weapon("Broken sword", "with the copper blade broken you could this call it a big knife", 8, 3, 1, 1,true,true,true,false,false);
         gearList.put("brokensword", brokenSword);
 
-        Weapon fakeWand = new Weapon("Fake wand", "a stick fashioned to look like a wand, but void of anything the really helps you cast magic", 8, 1, 2, 2);
+        Weapon fakeWand = new Weapon("Fake wand", "a stick fashioned to look like a wand, but void of anything that really helps you cast magic", 8, 1, 2, 2, true,false);
         gearList.put("fakewand", fakeWand);
 
 
-        //Tier 1 weapons - started of actual somewhat proper weapons
-        Weapon copperSword = new Weapon("Copper sword", "A simple copper blade both afforable and well balanced, as long as you don't hit something too hard it will hold up fine", 50, 4, 2, 1);
+        //Tier 1 weapons - start of actual somewhat proper weapons
+        Weapon copperSword = new Weapon("Copper sword", "A simple copper blade both afforable and well balanced, as long as you don't hit something too hard it will hold up fine", 50, 4, 2, 1,true,true,true,false,false);
         gearList.put("coppersword", copperSword);
 
-        Weapon shortBow = new Weapon("Short bow", "Small rough bow made from a tree near the town, if you pull to hard it might just snap", 40, 1, 4, 1);
+        Weapon shortBow = new Weapon("Short bow", "Small rough bow made from a tree near the town, if you pull to hard it might just snap", 40, 1, 4, 1,true,true,false);
         gearList.put("shortbow", shortBow);
 
-        Weapon beginnerStaff = new Weapon("beginner staff", "Basic carved staff made for those just starting to attempt magic, helps you focus but doesn't hit things well", 45, 1, 2, 3);
+        Weapon beginnerStaff = new Weapon("beginner staff", "Basic carved staff made for those just starting to attempt magic, helps you focus your spells, but it is unwieldy for much else", 45, 1, 2, 3,true,true);
         gearList.put("beginnerstaff", beginnerStaff);
 
 
