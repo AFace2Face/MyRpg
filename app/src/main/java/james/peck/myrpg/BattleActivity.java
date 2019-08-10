@@ -12,10 +12,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static james.peck.myrpg.Attack.AttackList;
+import james.peck.myrpg.Skills.Attack;
+import james.peck.myrpg.Skills.Defense;
+import james.peck.myrpg.Skills.Skill;
+
+import static james.peck.myrpg.Skills.Attack.AttackList;
 import static james.peck.myrpg.Creature.CreatureList;
 import static james.peck.myrpg.Creature.Player;
-import static james.peck.myrpg.Defense.DefenseList;
+import static james.peck.myrpg.Skills.Defense.DefenseList;
 
 /**
  * Created by James on 4/14/2018.

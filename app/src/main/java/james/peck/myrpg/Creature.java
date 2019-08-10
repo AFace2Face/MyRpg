@@ -313,7 +313,7 @@ public class Creature implements Serializable {
             int i = (int)(Math.random() * knownAttacks.size());
             return knownAttacks.get(i); }
         else
-            return knownAttacks.get(1);
+            return knownAttacks.get(0);
     }
 
     /**

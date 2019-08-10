@@ -74,21 +74,24 @@ public class ItemLexicon {
         Weapon stoneDagger = new Weapon("Stone dagger", "a crude stone dagger better at cutting then a stick but not by much", 6, 1,2,1,true,false,true,true,false,false,false,true);
         gearList.put("stonedagger", stoneDagger);
 
-        Weapon brokenSword = new Weapon("Broken sword", "with the copper blade broken you could this call it a big knife", 8, 3, 1, 1,true,true,true,false,false);
+        Weapon brokenSword = new Weapon("Broken sword", "with the copper blade broken you could this call it a big knife", 8, 2, 1, 2,true,true,true,false,false);
         gearList.put("brokensword", brokenSword);
 
-        Weapon fakeWand = new Weapon("Fake wand", "a stick fashioned to look like a wand, but void of anything that really helps you cast magic", 8, 1, 2, 2, true,false);
-        gearList.put("fakewand", fakeWand);
+       // Weapon fakeWand = new Weapon("Fake wand", "a stick fashioned to look like a wand, but void of anything that really helps you cast magic", 8, 1, 2, 2, true,false,false,false);
+       // gearList.put("fakewand", fakeWand);
+
+        Weapon woodMace = new Weapon("Wooden mace", "Simple mace made out of wood, it's weight makes it a powerfull hitter", 10, 4, 0, 0, true,false,false,false,true);
+        gearList.put("woodmace", woodMace);
 
 
         //Tier 1 weapons - start of actual somewhat proper weapons
         Weapon copperSword = new Weapon("Copper sword", "A simple copper blade both afforable and well balanced, as long as you don't hit something too hard it will hold up fine", 50, 4, 2, 1,true,true,true,false,false);
         gearList.put("coppersword", copperSword);
 
-        Weapon shortBow = new Weapon("Short bow", "Small rough bow made from a tree near the town, if you pull to hard it might just snap", 40, 1, 4, 1,true,true,false);
+        Weapon shortBow = new Weapon("Short bow", "Small rough bow made from a tree near the town.  It won't do you any good unless someone teaches you how to shoot", 40, 1, 4, 1,true,true,false);
         gearList.put("shortbow", shortBow);
 
-        Weapon beginnerStaff = new Weapon("beginner staff", "Basic carved staff made for those just starting to attempt magic, helps you focus your spells, but it is unwieldy for much else", 45, 1, 2, 3,true,true);
+        Weapon beginnerStaff = new Weapon("beginner staff", "Basic carved staff made for those just starting to attempt magic, helps you focus your spells, but it is unwieldy for much else", 45, 1, 2, 3,true,true,true,false);
         gearList.put("beginnerstaff", beginnerStaff);
 
 
@@ -124,7 +127,7 @@ public class ItemLexicon {
         weaponShopZero.add("longstick");
         weaponShopZero.add("stonedagger");
         weaponShopZero.add("brokensword");
-        weaponShopZero.add("fakewand");
+        weaponShopZero.add("woodmace");
         weaponShopCatalog.add(0, weaponShopZero);
 
 

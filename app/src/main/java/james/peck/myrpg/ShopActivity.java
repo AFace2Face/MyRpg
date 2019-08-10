@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import static james.peck.myrpg.AttackBuilder.skillCatalog;
 import static james.peck.myrpg.Creature.Player;
 import static james.peck.myrpg.ItemLexicon.armorShopCatalog;
 import static james.peck.myrpg.ItemLexicon.weaponShopCatalog;
@@ -29,6 +30,9 @@ public class ShopActivity extends AppCompatActivity {
                 break;
             case WEAPON:
                 fillWeaponShop();
+                break;
+            case SKILLS:
+                fillSkillShop();
                 break;
         }
     }
@@ -59,6 +63,18 @@ public class ShopActivity extends AppCompatActivity {
             i++;
         }
         initRecyclerView(displayList);
+    }
+
+    private void fillSkillShop() {
+        int i = 0;
+        ArrayList<String> skillList;
+        while (i <= Player.getLevel()) {
+            skillList = skillCatalog.get(i);
+            displayList.addAll(skillList);
+            i++;
+        }
+        initRecyclerView(displayList);
+
     }
 
     /**

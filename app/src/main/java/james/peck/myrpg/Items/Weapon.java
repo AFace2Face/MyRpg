@@ -29,21 +29,65 @@ public class Weapon extends Equipment {
         this.bonusIntuition = bonusIntuition;
     }
 
+    public boolean isMelee() {
+        return isMelee;
+    }
+
+    public boolean isRanged() {
+        return isRanged;
+    }
+
+    public boolean isMagic() {
+        return isMagic;
+    }
+
+    public boolean isSlash() {
+        return isSlash;
+    }
+
+    public boolean isThrust() {
+        return isThrust;
+    }
+
+    public boolean isChop() {
+        return isChop;
+    }
+
+    public boolean isBash() {
+        return isBash;
+    }
+
+    public boolean isPolearm() {
+        return isPolearm;
+    }
+
+    public boolean isShort() {
+        return isShort;
+    }
+
+    public boolean isBow() {
+        return isBow;
+    }
+
+    public boolean isCrossbow() {
+        return isCrossbow;
+    }
+
     private int bonusStrength;
     private int bonusAgility;
     private int bonusIntuition;
 
-    private Boolean isMelee = false;
-    private Boolean isRanged = false;
-    private Boolean isMagic = false;
-    private Boolean isSlash = false;
-    private Boolean isThrust = false;
-    private Boolean isChop = false;
-    private Boolean isBash = false;
-    private Boolean isPolearm = false;
-    private Boolean isShort = false;
-    private Boolean isBow = false;
-    private Boolean isCrossbow = false;
+    private boolean isMelee;
+    private boolean isRanged;
+    private boolean isMagic;
+    private boolean isSlash;
+    private boolean isThrust;
+    private boolean isChop;
+    private boolean isBash;
+    private boolean isPolearm;
+    private boolean isShort;
+    private boolean isBow;
+    private boolean isCrossbow;
 
 
     public Weapon(String name, int value, int strength, int agility, int intutition) {
@@ -54,7 +98,7 @@ public class Weapon extends Equipment {
         bonusIntuition = intutition;
     }
 
-    public Weapon(String name, String description, int value, int strength, int agility, int intuition, Boolean isMelee, Boolean isSlash, Boolean isThrust, Boolean isChop, Boolean isBash) {
+    public Weapon(String name, String description, int value, int strength, int agility, int intuition, boolean isMelee, boolean isSlash, boolean isThrust, boolean isChop, boolean isBash) {
         this.name = name;
         this.description = description;
         this.value = value;
@@ -70,7 +114,7 @@ public class Weapon extends Equipment {
     }
     
 
-    public Weapon(String name, String description, int value, int strength, int agility, int intuition, Boolean isRanged, Boolean isBow, Boolean isCrossbow) {
+    public Weapon(String name, String description, int value, int strength, int agility, int intuition, boolean isRanged, boolean isBow, boolean isCrossbow) {
         this.name = name;
         this.description = description;
         this.value = value;
@@ -82,7 +126,7 @@ public class Weapon extends Equipment {
         this.isCrossbow = isCrossbow;
     }
 
-    public Weapon(String name, String description, int value, int strength, int agility, int intuition, Boolean isMagic, Boolean isPolearm) {
+    public Weapon(String name, String description, int value, int strength, int agility, int intuition, boolean isMagic, boolean isPolearm, boolean isMelee, boolean isBash) {
         this.name = name;
         this.description = description;
         this.value = value;
@@ -91,9 +135,11 @@ public class Weapon extends Equipment {
         this.bonusIntuition = intuition;
         this.isMagic = isMagic;
         this.isPolearm = isPolearm;
+        this.isMelee = isMelee;
+        this.isBash = isBash;
     }
 
-    public Weapon(String name, String description, int value, int strength, int agility, int intuition, Boolean isMelee, Boolean isMagic, Boolean isSlash, Boolean isThrust, Boolean isChop, Boolean isBash, Boolean isPolearm, Boolean isShort) {
+    public Weapon(String name, String description, int value, int strength, int agility, int intuition, boolean isMelee, boolean isMagic, boolean isSlash, boolean isThrust, boolean isChop, boolean isBash, boolean isPolearm, boolean isShort) {
         this.name = name;
         this.description = description;
         this.value = value;

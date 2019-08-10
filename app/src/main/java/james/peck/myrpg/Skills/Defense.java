@@ -1,4 +1,4 @@
-package james.peck.myrpg;
+package james.peck.myrpg.Skills;
 
 import java.util.HashMap;
 

@@ -40,6 +40,19 @@ public class TownActivity extends AppCompatActivity {
             }
         });
 
+        Button skillShop = findViewById(R.id.Skill_Button);
+        skillShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShopActivity.shopNumber = SKILLS;
+                Intent intent = new Intent(getBaseContext(), ShopActivity.class);
+                getBaseContext().startActivity(intent);
+            }
+        });
+
+
+
+
         Button dungeonEntrance = findViewById(R.id.dungeonEntrance);
         dungeonEntrance.setOnClickListener(new View.OnClickListener() {
             @Override

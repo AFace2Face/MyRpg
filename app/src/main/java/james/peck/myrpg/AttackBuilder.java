@@ -1,7 +1,12 @@
 package james.peck.myrpg;
 
-import static james.peck.myrpg.Attack.AttackList;
-import static james.peck.myrpg.Defense.DefenseList;
+import java.util.ArrayList;
+
+import james.peck.myrpg.Skills.Attack;
+import james.peck.myrpg.Skills.Defense;
+
+import static james.peck.myrpg.Skills.Attack.AttackList;
+import static james.peck.myrpg.Skills.Defense.DefenseList;
 
 /**
  * Created by James on 7/21/2018.
@@ -9,16 +14,32 @@ import static james.peck.myrpg.Defense.DefenseList;
 
 public class AttackBuilder {
 
-    final int STR = 0, AGI = 1, INT = 2;
-    final int BASH = 2, PIERCE = 1, FIRE = 3, SLASH = 3;
+    private final int STR = 0, AGI = 1, INT = 2;
+    private final int BLUNT = 2, PIERCE = 1, FIRE = 3, CUT = 3;
+    private final int MELEE = 0, RANGED = 1, MAGIC = 2, SLASH = 3, THRUST = 4, CHOP = 5, BASH = 6 , POLEARM = 7, SHORT = 8, BOW= 9 , CROSSBOW = 10;
+
+    public static ArrayList<ArrayList<String>> skillCatalog = new ArrayList<>(4);
 
     public void BuildList()
 
     {
         // Tier 0 (starting) attack
-        Attack smack = new Attack("Smack", 15, 9, STR, BASH);
+        Attack smack = new Attack("Smack", 15, 9, STR, BLUNT, MELEE);
         AttackList.put("smack", smack);
 
+        // Tier 0.5 (basic) attacks
+        Attack cut = new Attack("Cut", 10, 10, STR, CUT, SLASH);
+        AttackList.put("cut", cut);
+
+        Attack stab = new Attack("Stab", 12, 12, AGI, PIERCE, THRUST);
+        AttackList.put("stab", stab);
+
+        Attack bludgeon = new Attack("Bludgeon", 15, 14, STR, BLUNT, BASH);
+        AttackList.put("bludgeon", bludgeon);
+
+        //Tier 1 attacks                                                       //change off fire type
+        Attack magicBlast = new Attack("Magic blast", 20, 17, INT, FIRE, MAGIC);
+        AttackList.put("magicblast", magicBlast);
 
 
 
@@ -27,10 +48,8 @@ public class AttackBuilder {
 
 
 
-
-
-
-        Defense recoil = new Defense("Recoil", 10, 90, "agi", "guard");
+        // Tier 0 (starting) defense
+        Defense recoil = new Defense("Recoil", 10, 100, "agi", "guard");
         DefenseList.put("recoil", recoil);
 
 
@@ -57,7 +76,7 @@ public class AttackBuilder {
 
 
 
-
+/*
         Attack blowDart = new Attack("BlowDart", 10, 25, "agi", "pierce");
         AttackList.put("blowDart", blowDart);
         Attack maceStrike = new Attack("MaceStrike", 10, 25,"str", "bash");
@@ -85,5 +104,21 @@ public class AttackBuilder {
         DefenseList.put("tooth&Paw", toothAndPaw);
         Defense dodgeAttack = new Defense("dodgeAttack", 100,2000,1,0, 1);
         DefenseList.put("dodgeAttack", dodgeAttack);
+        */
+
+        makeSkillCatalog();
+    }
+
+    private void makeSkillCatalog() {
+        ArrayList<String> skillShopZero = new ArrayList<>(0);
+        skillShopZero.add("smack");
+        skillCatalog.add(0, skillShopZero);
+
+        ArrayList<String> skillShopOne = new ArrayList<>(4);
+        skillShopOne.add("cut");
+        skillShopOne.add("stab");
+        skillShopOne.add("bludgeon");
+        skillShopOne.add("magicblast");
+        skillCatalog.add(1,skillShopOne);
     }
 }

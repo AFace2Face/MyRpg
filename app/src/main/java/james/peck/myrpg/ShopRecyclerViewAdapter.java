@@ -15,15 +15,20 @@ import james.peck.myrpg.Items.Body;
 import james.peck.myrpg.Items.Helmet;
 import james.peck.myrpg.Items.Item;
 import james.peck.myrpg.Items.Weapon;
+import james.peck.myrpg.Skills.Attack;
+import james.peck.myrpg.Skills.Defense;
+import james.peck.myrpg.Skills.Skill;
 
+import static james.peck.myrpg.Skills.Attack.AttackList;
 import static james.peck.myrpg.Creature.Player;
+import static james.peck.myrpg.Skills.Defense.DefenseList;
 import static james.peck.myrpg.Items.Equipment.gearList;
 
 public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private ArrayList<String> displayList;
-    private final int HELMET = 0, BODY = 1, WEAPON = 2, ITEM = 3;
+    private final int HELMET = 0, BODY = 1, WEAPON = 2, ITEM = 3, SKILL =4;
     private EquipmentChanger changer;
     private int expandedPosition = -1;
     private int previousExpandedPosition = -1;
@@ -39,8 +44,20 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         return gearList.get(itemName);
     }
 
+    public Skill findSkill(String skillName) {
+        Skill skill;
+        if(AttackList.get(skillName) != null)
+            skill = AttackList.get(skillName);
+        else
+            skill = DefenseList.get(skillName);
+        return skill;
+    }
+
     @Override
     public int getItemViewType(int position) {
+        //change skill to tree and remove
+        if (ShopActivity.shopNumber == 3)
+            return SKILL;
         Item item = findItem(displayList.get(position));
         if (item instanceof Helmet) {
             return HELMET;
@@ -62,6 +79,11 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         View view;
         switch (viewType) {
+            //remove after skill tree
+            case SKILL:
+                view = inflater.inflate(R.layout.layouttownskill, parent, false);
+                viewHolder = new TownSkillViewHolder(view);
+                break;
             case HELMET:
                 view = inflater.inflate(R.layout.layouttownhelmet, parent, false);
                 viewHolder = new TownHelmetViewHolder(view);
@@ -87,6 +109,10 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         switch (holder.getItemViewType()) {
 
+            case SKILL:
+                TownSkillViewHolder holder0 = (TownSkillViewHolder) holder;
+                configureTownSkillViewHolder(holder0, position);
+                break;
             case HELMET:
                 TownHelmetViewHolder holder1 = (TownHelmetViewHolder) holder;
                 configureTownHelmetViewHolder(holder1, position);
@@ -247,6 +273,82 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         });
     }
 
+    public void configureTownSkillViewHolder(final TownSkillViewHolder holder, final int position) {
+        Skill skill = findSkill(displayList.get(position));
+  /*      if(skill instanceof Attack)
+        for(int i = 0; i < Player.knownAttacks.size(); i++) {
+            if (displayList.get(position).equals(Player.knownAttacks.get(i))) {
+                holder.skillShopBody.setVisibility(View.GONE);
+                break;
+            }
+        } */
+        final boolean isAttack;
+        if (skill instanceof Attack)
+            isAttack = true;
+        else
+            isAttack = false;
+
+        holder.skillShopName.setText(skill.getName());
+        if (skill.getStat() == 0)
+            holder.skillShopStat.setText("Strength");
+        else if (skill.getStat() == 1)
+            holder.skillShopStat.setText("Agility");
+        else if (skill.getStat() == 2)
+            holder.skillShopStat.setText("Intuition");
+        if (isAttack) {
+            holder.skillShopDmg.setText(((Attack) skill).getDamage() + " ");
+            holder.skillShopDrain.setText(((Attack) skill).getDrain() + " ");
+        } else if (!isAttack)
+        {
+            holder.skillShopDmg.setText(((Defense) skill).getImpairment() + " ");
+            holder.skillShopDrain.setText(((Defense) skill).getDrain() + " ");
+        }
+        holder.skillShopReq1.setText(skill.required.get(0));
+        if(skill.required.size() > 1)
+            holder.skillShopReq2.setText(skill.required.get(1));
+        else
+            holder.skillShopReq2.setText(" ");
+        if(skill.required.size() > 2)
+            holder.skillShopReq3.setText(skill.required.get(2));
+        else
+            holder.skillShopReq3.setText(" ");
+
+
+
+
+
+        final boolean isExpanded = position == expandedPosition;
+        holder.skillShopDetails.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.itemView.setActivated(isExpanded);
+        if(isExpanded)
+            previousExpandedPosition = position;
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandedPosition = isExpanded ? -1 : holder.getAdapterPosition();
+                notifyItemChanged(previousExpandedPosition);
+                notifyItemChanged(holder.getAdapterPosition());
+            }
+        });
+
+        holder.skillShopBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isAttack) {
+                    Player.knownAttacks.add(displayList.get(position));
+                    notifyItemChanged(holder.getAdapterPosition());
+                }
+                else if (!isAttack) {
+                    Player.knownDefenses.add(displayList.get(position));
+                    notifyItemChanged(holder.getAdapterPosition());
+                }
+
+            }
+        });
+    }
+
 
     public class TownHelmetViewHolder extends RecyclerView.ViewHolder {
 
@@ -318,6 +420,37 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             weaponShopCompare = itemView.findViewById(R.id.weaponShopCompare);
             weaponShopBuy = itemView.findViewById(R.id.weaponShopBuy);
             weaponShopDetails = itemView.findViewById(R.id.weaponShopDetails);
+        }
+    }
+
+    public class TownSkillViewHolder extends RecyclerView.ViewHolder {
+        TextView skillShopName;
+        TextView skillShopValue;
+        TextView skillShopText;
+        TextView skillShopStat;
+        TextView skillShopDmg;
+        TextView skillShopDrain;
+        TextView skillShopReq1;
+        TextView skillShopReq2;
+        TextView skillShopReq3;
+        Button skillShopBuy;
+        ConstraintLayout skillShopDetails;
+        ConstraintLayout skillShopBody;
+
+        public TownSkillViewHolder(View itemView) {
+            super(itemView);
+            skillShopName = itemView.findViewById(R.id.SkillShopName);
+            skillShopValue = itemView.findViewById(R.id.SkillShopValue);
+            skillShopText = itemView.findViewById(R.id.SkillShopText);
+            skillShopStat = itemView.findViewById(R.id.SkillShopStat);
+            skillShopDmg = itemView.findViewById(R.id.SkillShopDmg);
+            skillShopDrain = itemView.findViewById(R.id.SkillShopDrain);
+            skillShopReq1 = itemView.findViewById(R.id.SkillShopNeed1);
+            skillShopReq2 = itemView.findViewById(R.id.SkillShopNeed2);
+            skillShopReq3 = itemView.findViewById(R.id.SkillShopNeed3);
+            skillShopBuy = itemView.findViewById(R.id.SkillShopBuy);
+            skillShopDetails = itemView.findViewById(R.id.SkillShopDetails);
+            skillShopBody = itemView.findViewById(R.id.SkillShopBody);
         }
     }
 
