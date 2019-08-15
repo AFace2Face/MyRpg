@@ -57,7 +57,7 @@
             android:layout_marginStart="107dp"
             android:layout_marginTop="138dp"
             android:text="Dungeon"
-            app:layout_constraintStart_toEndOf="@+id/button5"
+            app:layout_constraintStart_toEndOf="@+id/Home_Button"
             app:layout_constraintTop_toBottomOf="@+id/weaponShop" />
 
         <Button
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="63dp"
             android:layout_marginTop="133dp"
-            android:text="Button"
+            android:text="Items"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Skill_Button" />
 
@@ -91,12 +91,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/Home_Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="63dp"
             android:layout_marginTop="138dp"
-            android:text="Button"
+            android:text="Home"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button2" />
 

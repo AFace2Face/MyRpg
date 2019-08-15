@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CheckpointActivity"></activity>
+        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".CheckpointActivity" />
         <activity android:name=".ShopActivity" />
         <activity android:name=".TownActivity" />
         <activity android:name=".InventoryActivity" />

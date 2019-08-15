@@ -15,12 +15,18 @@ public class CreatureDic {
     {
         //Zone 1 Creatures
         Creature strayWolf = new Creature("Stray wolf", "You stumble across a lone hungry wolf", 50, 120, 8, 15, 1 , 1, 2, "wolfBite", "duck");
-        CreatureList.put("strayWolf", strayWolf);
+        CreatureList.put("straywolf", strayWolf);
+        Creature angryStag = new Creature("Angry stag", "You see a stag in front of you \n The stag raises it's head and looks at you threateningly", 70, 100, 10, 8, 1, 2, 1, "stagcharge", "antlerguard");
+        CreatureList.put("angrystag", angryStag);
 
 
         //Zone 1 Boss/Mini Boss
         Boss alphaWolf = new Boss("Alpha wolf", "A howl echos through the forest followed by a large wolf bursting threw the undergrowth", 200, 300, 10, 18, 3, 3, 5);
         alphaWolf.knownAttacks.add("wolfBite");
+
+        alphaWolf.knownDefenses.add("duck");
+
+        CreatureList.put("alphawolf", alphaWolf);
 
 
 
@@ -41,7 +47,10 @@ public class CreatureDic {
         ArrayList<String> presentCreatures = new ArrayList<>();
         if(zone == 1)
         {
-            presentCreatures.add("strayWolf");
+            presentCreatures.add(0,"alphawolf");
+            presentCreatures.add("straywolf");
+            presentCreatures.add("angrystag");
+
         }
         return presentCreatures;
     }

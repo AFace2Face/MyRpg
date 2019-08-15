@@ -40,6 +40,7 @@ public class BattleActivity extends AppCompatActivity {
     private TextView monsterHealth;
     private TextView monsterEnergy;
     private ArrayList<String> presentCreatures = new ArrayList<>();
+    private int zoneProgress;
 
 
 
@@ -133,12 +134,14 @@ public class BattleActivity extends AppCompatActivity {
        }
     }
 
-    public void BattleStart()
-    {
+    public void BattleStart() {
         CreatureDic myCreatureDic = new CreatureDic();
+        //make zone dynamic
         presentCreatures = myCreatureDic.PopulateArea(1);
+        zoneProgress = 0;
 
-        SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext());  save.playerSave();
+        SaveLoadPlayer save = new SaveLoadPlayer(Player, getBaseContext());
+        save.playerSave();
         Monster = CreatureList.get(presentCreatures.get(0)).spawnNewCopy();
 
         Fighters.add(Player);
@@ -157,16 +160,28 @@ public class BattleActivity extends AppCompatActivity {
     private void nextBattle()
     {
         takeRest();
-        Monster = CreatureList.get(presentCreatures.get((int) (Math.random()* presentCreatures.size()))).spawnNewCopy();
-        battleLog.setText(Monster.getEncounter());
-        Creature p = Fighters.get(0);
+        if (zoneProgress < 9) {
+            Monster = CreatureList.get(presentCreatures.get((int) ((Math.random()* (presentCreatures.size()-1)))+1)).spawnNewCopy();
+            battleLog.setText(Monster.getEncounter());
+            Creature p = Fighters.get(0);
 
-        for(int i = 0; i < Fighters.size(); i++)
-        {
-            p = Fighters.get(i);
-            p.setTurnProgress(0);
-            updateLifeForce();
+            for (int i = 0; i < Fighters.size(); i++) {
+                p = Fighters.get(i);
+                p.setTurnProgress(0);
+                updateLifeForce();
+            }
+        } else {
+            Monster = CreatureList.get(presentCreatures.get(0));
+            battleLog.setText(Monster.getEncounter());
+            Creature p = Fighters.get(0);
+
+            for (int i = 0; i < Fighters.size(); i++) {
+                p = Fighters.get(i);
+                p.setTurnProgress(0);
+                updateLifeForce();
+            }
         }
+        zoneProgress += 3;
          NextTurn();
     }
 

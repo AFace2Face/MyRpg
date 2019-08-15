@@ -68,6 +68,13 @@ public class AttackBuilder {
         DefenseList.put("duck", duck);
 
 
+        Attack stagCharge = new Attack("Stag charge", 8, 7, STR, BASH);
+        AttackList.put("stagcharge", stagCharge);
+
+        Defense antlerGuard = new Defense("Antler guard", 50, 60, STR, 0);
+        DefenseList.put("antlerguard", antlerGuard);
+
+
 
 
 

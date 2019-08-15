@@ -1,10 +1,13 @@
 package james.peck.myrpg;
 
 import android.content.Intent;
+import android.print.PrinterId;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import static james.peck.myrpg.Creature.Player;
 
 public class TownActivity extends AppCompatActivity {
 
@@ -59,6 +62,8 @@ public class TownActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), BattleActivity.class);
                 getBaseContext().startActivity(intent);
+                Player.setHealth(Player.getMHP());
+                Player.setEnergy(Player.getMEP());
             }
         });
 
